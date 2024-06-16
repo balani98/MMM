@@ -1,0 +1,55 @@
+.header {
+    height: 70px;
+    padding: 10px 35px;
+    background-color: #fff;
+    color: #000;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 5px 5px 5px #939393;
+    .logo {
+      font-weight: bold;
+      font-size: 20px;
+      margin-top: 10px;
+    }
+    .user {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      .user-image {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 2px solid #000;
+        background-color: #fff;
+        margin-left: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+    }
+  }
+  /* Media query for screens smaller than 768px (e.g., mobile) */
+
+/* Media query for screens larger than 992px (e.g., desktop) */
+@media (min-width: 992px) {
+  .header {
+    width:  100%; /* 60% width for large screens */
+  }
+}
+/* Media query for screens between 768px and 992px (e.g., tablets) */
+@media (min-width: 819px) and (max-width: 991px) {
+  .header {
+    width: 100%; /* 80% width for medium-sized screens */
+  }
+}
+@media (min-width: 768px) and (max-width: 891px) {
+  .header {
+    width: 100%; /* 80% width for medium-sized screens */
+  }
+}
+@media (max-width: 768px) {
+  .header {
+    width: 120%; /* 80% width for medium-sized screens */
+  }
+}

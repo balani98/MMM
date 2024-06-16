@@ -1,0 +1,75 @@
+<div class="main-content">
+  <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row d-flex justify-content-center">
+          <div class="col-xl-4 col-lg-6 col-md-6 card-deck">
+            <div class="card card-stats mb-4 mb-xl-4 p-4 shadow">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h3 class="card-title mb-0 fw-bold">
+                      Total Target
+                    </h3>
+                    <span class="h2 font-weight-bold mb-0">{{ UIStats?.total_target | number:'1.0':'en-US' }}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div
+                      class=""
+                    >
+                    <span class="fa fa-bullseye" style="color: #80DBFF;font-size:5rem" aria-hidden="true"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-6 col-md-6 card-deck">
+            <div class="card card-stats mb-4 mb-xl-4 p-4 shadow">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h3 class="card-title mb-0 fw-bold">
+                      Total Spend
+                    </h3>
+                    <span class="h2 font-weight-bold mb-0">{{currencyType| currencySymbol}} {{ UIStats?.total_spend | number:'1.0':'en-US' }}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div
+                      class=""
+                    >
+                    <span class="fa fa-money" style="color: #3e9c35;font-size:5rem" aria-hidden="true"></span>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-6 col-md-6 card-deck">
+            <div class="card card-stats mb-4 mb-xl-4 p-4 shadow">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col">
+                    <h3 class="card-title mb-0 fw-bold">
+                      Number of Channels
+                    </h3>
+                    <span class="h2 font-weight-bold mb-0">{{ UIStats?.no_of_channel | number:'1.0':'en-US' }}</span>
+                  </div>
+                  <div class="col-auto">
+                    <div
+                      class=""
+                    >
+                    <span class="fa fa-tv" style="color: #ff4081;font-size:5rem" aria-hidden="true"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page content -->
+</div>

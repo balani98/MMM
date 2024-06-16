@@ -1,0 +1,193 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Aboreto&family=Exo:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap");
+$primary: #FA6C97;
+$light-primary-text: white;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Exo", sans-serif;
+  background-color: #d8d8d8;
+}
+
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a6d5fb;
+}
+select:hover{
+  border-color: #34495e;
+  transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #012645;
+}
+
+btn-primary {
+  color: #fff;
+  background-color: #b66dff;
+  border-color: #b66dff;
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: #a347ff;
+  border-color: #9d3aff;
+}
+.btn-primary:focus,
+.btn-primary.focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(193, 131, 255, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(193, 131, 255, 0.5);
+}
+.btn-primary.disabled,
+.btn-primary:disabled {
+  color: #fff;
+  background-color: #f3f3f3;
+  border-color: #f3f3f3;
+}
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: #f3f3f3;
+  border-color: #f3f3f3;
+}
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(193, 131, 255, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(193, 131, 255, 0.5);
+}
+
+.btn-secondary {
+  color: #212529;
+  background-color: #c3bdbd;
+  border-color: #c3bdbd;
+}
+.btn-secondary:hover {
+  color: #212529;
+  background-color: #b1a9a9;
+  border-color: #aba2a2;
+}
+.btn-secondary:focus,
+.btn-secondary.focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(171, 166, 167, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(171, 166, 167, 0.5);
+}
+.btn-secondary.disabled,
+.btn-secondary:disabled {
+  color: #212529;
+  background-color: #c3bdbd;
+  border-color: #c3bdbd;
+}
+.btn-secondary:not(:disabled):not(.disabled):active,
+.btn-secondary:not(:disabled):not(.disabled).active,
+.show > .btn-secondary.dropdown-toggle {
+  color: #212529;
+  background-color: #aba2a2;
+  border-color: #a59c9c;
+}
+.btn-secondary:not(:disabled):not(.disabled):active:focus,
+.btn-secondary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-secondary.dropdown-toggle:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(171, 166, 167, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(171, 166, 167, 0.5);
+}
+
+.btn-success {
+  color: #fff;
+  background-color: #34495e;;
+  border-color: #34495e;;
+}
+.btn-success:hover {
+  color: #fff;
+  background-color: #34495e;;
+  border-color: #34495e;;
+}
+.btn-success:focus,
+.btn-success.focus {
+  -webkit-box-shadow: 0 0 0 0.2rem #34495e;;
+  box-shadow: 0 0 0 0.2rem #34495e;;
+}
+.btn-success.disabled,
+.btn-success:disabled {
+  color: #fff;
+  background-color: #34495e;;
+  border-color: #34495e;;
+}
+.btn-success:not(:disabled):not(.disabled):active,
+.btn-success:not(:disabled):not(.disabled).active,
+.show > .btn-success.dropdown-toggle {
+  color: #fff;
+  background-color: #15a28d;
+  border-color: #149783;
+}
+.btn-success:not(:disabled):not(.disabled):active:focus,
+.btn-success:not(:disabled):not(.disabled).active:focus,
+.show > .btn-success.dropdown-toggle:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(28, 182, 159, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(28, 182, 159, 0.5);
+}
+
+.btn-info {
+  color: #fff;
+  background-color: #198ae3;
+  border-color: #198ae3;
+}
+.btn-info:hover {
+  color: #fff;
+  background-color: #1575c1;
+  border-color: #146eb5;
+}
+.btn-info:focus,
+.btn-info.focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(60, 156, 231, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(60, 156, 231, 0.5);
+}
+.btn-info.disabled,
+.btn-info:disabled {
+  color: #fff;
+  background-color: #198ae3;
+  border-color: #198ae3;
+}
+.btn-info:not(:disabled):not(.disabled):active,
+.btn-info:not(:disabled):not(.disabled).active,
+.show > .btn-info.dropdown-toggle {
+  color: #fff;
+  background-color: #146eb5;
+  border-color: #1367aa;
+}
+.btn-info:not(:disabled):not(.disabled):active:focus,
+.btn-info:not(:disabled):not(.disabled).active:focus,
+.show > .btn-info.dropdown-toggle:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(60, 156, 231, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(60, 156, 231, 0.5);
+}
+
+.btn-warning {
+  color: #212529;
+  background-color: #fed713;
+  border-color: #fed713;
+}
+.btn-warning:hover {
+  color: #212529;
+  background-color: #eac301;
+  border-color: #ddb901;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

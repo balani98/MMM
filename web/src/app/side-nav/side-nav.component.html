@@ -1,0 +1,63 @@
+<div class="nav-items">
+  <div
+    class="nav-item"
+    [ngClass]="{ active: isActive('insights') }"
+    [routerLink]="['explorer']"
+    (click)="select('insights')"
+  >
+    <fa-icon [icon]="faDashboard"></fa-icon>
+    <span>Insights</span>
+  </div>
+  <div
+  class="nav-item"
+  [ngClass]="{ active: isActive('buildModel') }"
+  [routerLink]="['buildModel']"
+  (click)="select('buildModel')"
+>
+  <fa-icon [icon]="faMicrochip"></fa-icon>
+  <span>Market Modelling</span>
+</div>
+  <div
+    class="nav-item"
+    [ngClass]="{ active: isActive('showResults') }"
+    [routerLink]="['showResults']"
+    (click)="select('showResults')"
+  >
+    <fa-icon [icon]="faLocation"></fa-icon>
+    <span>Response Waves</span>
+  </div>
+  <div
+  class="nav-item"
+  [ngClass]="{ active: isActive('modelHealth') }"
+  [routerLink]="['modelHealth']"
+  (click)="select('modelHealth')"
+>
+  <fa-icon [icon]="faStethoscope"></fa-icon>
+  <span>Model Health</span>
+</div>
+  <div
+    class="nav-item"
+    [ngClass]="{ active: isActive('user_guide') }"
+    (click)="select('user_guide')"
+  ><div (click) = "downloadUserGuide()">
+    <fa-icon [icon]="faShop"></fa-icon>
+    <span href=".../assets/userguide.pdf" download="userguide.pdf">User Guide</span>
+    </div>
+  </div>
+  <!-- <div
+    class="nav-item"
+    [ngClass]="{ active: isActive('contact') }"
+    (click)="select('contact')"
+  >
+    <fa-icon [icon]="faContactBook"></fa-icon>
+    <span>Contact</span>
+  </div> -->
+  <!-- <div
+    class="nav-item"
+    [ngClass]="{ active: isActive('help') }"
+    (click)="select('help')"
+  >
+    <fa-icon [icon]="faHand"></fa-icon>
+    <span>Help</span>
+  </div> -->
+</div>

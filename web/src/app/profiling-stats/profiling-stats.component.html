@@ -1,0 +1,52 @@
+<div
+  role="tabpanel"
+  class="row tab-pane col-md-12 col-lg-12 col-sm-12 p-2 active"
+  id="overview-dataset_overview"
+>
+  <div class="col-lg-6 col-md-6 col-sm-6">
+    <p class="h4">Dataset statistics</p>
+    <table class="table table-condensed stats">
+      <tbody>
+        <tr>
+          <th>Number of variables</th>
+          <td>{{overviewStats?.n_var}}</td>
+        </tr>
+        <tr>
+          <th>Number of observations</th>
+          <td>{{overviewStats?.n}}</td>
+        </tr>
+        <tr>
+          <th>Missing cells</th>
+          <td>{{overviewStats?.n_cells_missing}}</td>
+        </tr>
+        <tr>
+          <th>Missing cells (%)</th>
+          <td>{{overviewStats?.p_cells_missing | convertToPercentage}} %</td>
+        </tr>
+        <tr>
+          <th>Total size in memory</th>
+          <td>{{overviewStats?.memory_size | shortNumber }} KiB</td>
+        </tr>
+        <tr>
+          <th>Average record size in memory</th>
+          <td>{{overviewStats?.record_size | number }} B</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-6">
+    <p class="h4">Variable types</p>
+    <table class="table table-condensed stats">
+      <tbody>
+        <tr>
+          <th>DateTime</th>
+          <td>{{overviewStats?.types?.DateTime}}</td>
+        </tr>
+        <tr>
+          <th>Numeric</th>
+          <td>{{overviewStats?.types?.Numeric}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

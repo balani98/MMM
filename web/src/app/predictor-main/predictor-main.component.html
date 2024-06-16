@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div
+    class="mb-5"
+    id="multi_line_chart_with_checkboxes"
+    [ngStyle]="{'visibility':predictorInputs === false ? 'hidden' : 'visible' }"
+    style="
+      margin-top: 20px;
+      padding: 1.5rem;
+      position: relative;
+      background-color: #fff;
+    "
+  ></div>
+  <div class="card row"   *ngIf = "predictorInputs === true">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col"class="text-center">Channel</th>
+          <th scope="col"class="text-center">Spend Share</th>
+          <th scope="col"class="text-center">Effective Share</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of tableDataKeys">
+          <td class="text-center">{{ item }}</td>
+          <td class="text-center">{{ tableData[item][0] | roundingPipe:2}} %</td>
+          <td class="text-center">{{ tableData[item][1] | roundingPipe:2}} %</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

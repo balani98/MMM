@@ -1,0 +1,25 @@
+<div
+  role="tabpanel"
+  class="row tab-pane col-md-12 col-lg-12 col-sm-12 p-2 active"
+>
+  <div
+    class="chart-container"
+    style="
+      position: relative;
+      height: 70vh;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+    "
+  >
+    <canvas id="MyChart">{{ chart }}</canvas>
+  </div>
+  <div
+    style="display: flex; justify-content: end"
+    (click)="(downloadDetailedEDAReport)"
+  >
+    <a (click)="downloadDetailedEDAReport()">
+      <fa-icon [icon]="faDownload" style="font-size: 1.5rem; color: #ff4081;cursor:pointer"></fa-icon>
+    </a>
+  </div>
+</div>

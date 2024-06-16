@@ -1,0 +1,42 @@
+<div
+  role="tabpanel"
+  class="row tab-pane col-md-12 col-lg-12 col-sm-12 p-2 active"
+>
+ <div class="col-lg-12 col-md-12 col-sm-12">
+  <p class="h4">Validation Report Statistics</p>
+    <table class="table table-condensed stats">
+      <tbody>
+        <tr>
+          <th>Data Size Validation</th>
+          <td *ngIf="(validationReport?.data_size_validation| json) == ({} | json)">validated</td>
+          <td *ngIf="(validationReport?.data_size_validation| json) != ({} | json)"> Reason : {{ validationReport?.data_size_validation?.reason }}</td>
+        </tr>
+        <tr>
+          <th>Missing Data Points</th>
+          <td *ngIf="(validationReport?.missing_datapoints|json) == ({} | json)">validated</td>
+          <td *ngIf="(validationReport?.missing_datapoints| json) != ({} | json)">{{ validationReport?.missing_datapoints |json }}</td>
+        </tr>
+        <tr>
+          <th>Zero Data Points</th>
+          <td *ngIf="(validationReport?.zero_datapoints|json) == ({} | json)">validated</td>
+          <td *ngIf="(validationReport?.zero_datapoints| json) != ({} | json)">{{ validationReport?.zero_datapoints |json }}</td>
+        </tr>
+        <tr>
+          <th>Combined Data Points</th>
+          <td *ngIf="(validationReport?.combined_datapoints|json) == ({} | json)">validated</td>
+          <td *ngIf="(validationReport?.combined_datapoints| json) != ({} | json)">{{ validationReport?.combined_datapoints |json }}</td>
+        </tr>
+        <tr>
+          <th>Variance Variables</th>
+          <td *ngIf="(validationReport?.no_variance_var|json) == ([] | json)">validated</td>
+          <td *ngIf="(validationReport?.no_variance_var|json) != ([] | json)">{{ validationReport?.no_variance_var}}</td>
+        </tr>
+        <tr>
+          <th>Outliers</th>
+          <td *ngIf="(validationReport?.outliers|json) == ({} | json)">validated</td>
+          <td *ngIf="(validationReport?.outliers|json) != ({} | json)">{{ validationReport?.outliers|json}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,101 @@
+<div
+  role="tabpanel"
+  class="row tab-pane col-md-12 col-lg-12 col-sm-12 p-2 active"
+>
+  <div class="col-sm-6">
+    <p class="h4">Quantile statistics</p>
+    <table class="table table-condensed stats">
+      <tbody>
+        <tr>
+          <th>Minimum</th>
+          <td>{{ variableStats?.min | roundingPipe:3}}</td>
+        </tr>
+        <tr>
+          <th>5-th percentile</th>
+          <td>{{ variableStats["5%"] | roundingPipe:3}}</td>
+        </tr>
+        <tr>
+          <th>Q1</th>
+          <td>{{ variableStats["25%"] | roundingPipe:3}}</td>
+        </tr>
+        <tr>
+          <th>median</th>
+          <td>{{ variableStats["50%"] | roundingPipe:3}}</td>
+        </tr>
+        <tr>
+          <th>Q3</th>
+          <td>{{ variableStats["75%"] | roundingPipe:3}}</td>
+        </tr>
+        <tr>
+          <th>95-th percentile</th>
+          <td>{{ variableStats["95%"] | roundingPipe:3}}</td>
+        </tr>
+        <tr>
+          <th>Maximum</th>
+          <td>{{ variableStats?.max | roundingPipe:3}}</td>
+        </tr>
+        <tr>
+          <th>Range</th>
+          <td>{{ variableStats?.range | roundingPipe:3}}</td>
+        </tr>
+        <tr>
+          <th>Interquartile range (IQR)</th>
+          <td>{{ variableStats?.iqr | roundingPipe:3}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-sm-6">
+    <p class="h4">Descriptive statistics</p>
+    <table class="table table-condensed stats">
+      <tbody>
+        <tr>
+          <th>Standard deviation</th>
+          <td>{{ variableStats?.std | roundingPipe:2}}</td>
+        </tr>
+        <tr>
+          <th>Coefficient of variation (CV)</th>
+          <td>{{ variableStats?.cv| roundingPipe:2}}</td>
+        </tr>
+        <tr>
+          <th>Kurtosis</th>
+          <td>{{ variableStats?.kurtosis| roundingPipe:2}}</td>
+        </tr>
+        <tr>
+          <th>Mean</th>
+          <td>{{ variableStats?.mean| roundingPipe:2}}</td>
+        </tr>
+        <tr>
+          <th>Median Absolute Deviation (MAD)</th>
+          <td>{{ variableStats?.mad| roundingPipe:2}}</td>
+        </tr>
+        <tr>
+          <th>Skewness</th>
+          <td>{{ variableStats?.skewness| roundingPipe:2}}</td>
+        </tr>
+        <tr>
+          <th>Sum</th>
+          <td>{{ variableStats?.sum| roundingPipe:2}}</td>
+        </tr>
+        <tr>
+          <th>Variance</th>
+          <td>{{ variableStats?.variance | roundingPipe:2}}</td>
+        </tr>
+        <tr>
+          <th>Monotonicity</th>
+          <td>
+            {{ variableStats?.monotonic == 0 ? "Not Monotonic" : "Monotonic" }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div
+      style="display: flex; justify-content: end"
+      (click)="(downloadDetailedEDAReport)"
+    >
+      <a (click)="downloadDetailedEDAReport()">
+        <fa-icon [icon]="faDownload" style="font-size: 1.5rem; color: #ff4081;cursor:pointer"></fa-icon>
+      </a>
+    </div>
+  </div>
+</div>

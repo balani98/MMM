@@ -1,0 +1,275 @@
+<div class="col-12 stretch-card">
+  <!-- <div class="text-center mb-2">
+    <h1>Insights</h1>
+  </div> -->
+  <ngx-spinner
+  bdColor = "rgba(51, 51, 51, 0.8)"
+  size = "large"
+  color = "#934d4d"
+  type = "ball-8bits"></ngx-spinner>
+  <div class="card mt-2 mx-auto p-4 bg-light">
+    <div class="card-body bg-light">
+      <form
+        id="explorer-form"
+        role="form"
+        #explorerInputForm="ngForm"
+      >
+        <div class="controls">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2">
+              <label class="fw-bold mb-2"
+                >Upload file ( Only .CSV allowed )</label
+              >
+              <div class="form-group flex-display">
+                <div class="file-upload w-75">
+                  <div class="file-select">
+                    <div class="file-select-button" id="fileName">
+                      Choose File
+                    </div>
+                    <div class="file-select-name" id="noFile">
+                      {{ name_of_file }}
+                    </div>
+                    <input
+                      type="file"
+                      name="chooseFile"
+                      class="form-control"
+                      (change)="checkFile($event)"
+                      id="chooseFile"
+                      accept=".csv"
+                    />
+                  </div>
+                </div>
+                <button
+                  class="btn btn-success w-25"
+                  (click)="uploadFile()"
+                  [disabled]="!fileIsUploaded()"
+                >
+                  Upload
+                </button>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2">
+              <div class="form-group">
+                <label for="form_name" class="fw-bold mb-2"
+                  >Date Selector *</label
+                >
+                <Select
+                  id="date_selector"
+                  class="form-control"
+                  placeholder="Please select the date selector*"
+                  (change)="dateCheck($event)"
+                  ngDefaultControl
+                  ngModel
+                  [disabled] = "selectorsList.length === 0"
+                  name="date_selector"
+                  #date_selector="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid': date_selector.touched && date_selector.invalid
+                  }"
+                  [ngClass]="{ 'is-invalid': dateSelectorErrorBool === true }"
+                >
+                  <option value="" selected disabled>
+                    Select Date Selector
+                  </option>
+                  <option
+                    [value]="selector"
+                    *ngFor="let selector of dateSelectorsList"
+                  >
+                    {{ selector }}
+                  </option>
+                </Select>
+                <div *ngIf = "date_selector.touched && date_selector.invalid" class="invalid-feedback">
+                  Please select Date Selector
+                </div>
+                <div *ngIf="dateSelectorErrorBool" class="invalid-feedback">
+                  {{ dateSelectorError }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2">
+              <div class="form-group">
+                <label for="data_granularity" class="fw-bold mb-2"
+                  >Data Granularity *</label
+                >
+                <select
+                  id="data_granularity_selector"
+                  name="data_granularity_selector"
+                  class="form-control"
+                  ngDefaultControl
+                  [(ngModel)] = "dataGranularityValue"
+                  #data_granularity_selector="ngModel"
+                  required
+                  [disabled] = "true"
+                  [ngClass]="{
+                    'is-invalid': data_granularity_selector.touched && data_granularity_selector.invalid
+                  }"
+                >
+                  <option value="" selected disabled>
+                    Data Granularity
+                  </option>
+                  <option value="daily">Daily</option>
+                  <option value="weekly">Weekly</option>
+                  <option value="monthly">Monthly</option>
+                  <option value="yearly">Yearly</option>
+                </select>
+                <div *ngIf = "data_granularity_selector.touched && data_granularity_selector.invalid" class="invalid-feedback">
+                  Please select data granularity
+                </div>
+                <div class="disabled-message invalid feedback">This selection is automated from System</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2">
+              <div class="form-group">
+                <label for="investment_selector" class="fw-bold mb-2"
+                  >Investment Selector</label
+                >
+                <mat-select
+                  id="investment_selector"
+                  name="investment_selector"
+                  class="form-control"
+                  (selectionChange)="investmentCheck($event)"
+                  [disabled] = "spendSelectorsList.length === 0"
+                  ngDefaultControl
+                  placeholder="Select Investment Selector"
+                  ngModel
+                  #investment_selector="ngModel"
+                  required
+                  multiple
+                  [ngClass]="{
+                    'is-invalid': investment_selector.touched && investment_selector.invalid
+                  }"
+                  [ngClass]="{ 'is-invalid': investmentSelectorErrorBool === true }"
+                >
+                  <mat-option
+                    [value] = "selector"
+                    *ngFor="let selector of spendSelectorsList"
+                  >
+                    {{selector}}
+                  </mat-option>
+                </mat-select>
+                <div *ngIf = "investment_selector.touched && investment_selector.invalid" class="invalid-feedback">
+                  Please select Investment selector
+                </div>
+                <div *ngIf="investmentSelectorErrorBool" class="invalid-feedback">
+                  {{ investmentSelectorError }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2">
+              <div class="form-group">
+                <label for="target_selector" class="fw-bold mb-2"
+                  >Target Selector *</label
+                >
+                <select
+                  id="target_selector"
+                  type="text"
+                  name="target_selector"
+                  class="form-control"
+                  placeholder="Please select the target *"
+                  [disabled] = "targetSelectorsList.length === 0"
+                  (change)="targetCheck($event)"
+                  ngDefaultControl
+                  ngModel
+                  #target_selector="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid': target_selector.touched && target_selector.invalid
+                  }"
+                  [ngClass]="{ 'is-invalid': targetSelectorErrorBool === true }"
+                >
+                  <option value="" selected disabled>Select Target</option>
+                  <option
+                  [value] = "selector"  
+                  *ngFor="let selector of targetSelectorsList"
+                   
+                  >
+                    {{ selector }}
+                  </option>
+                </select>
+                <div *ngIf = "target_selector.touched && target_selector.invalid" class="invalid-feedback">
+                  Please select Target Selector
+                </div>
+                <div *ngIf="targetSelectorErrorBool" class="invalid-feedback">
+                  {{ targetSelectorError }}
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2">
+              <div class="form-group">
+                <label for="target_type_selector" class="fw-bold mb-2"
+                  >Target Type Selector *</label
+                >
+                <select
+                  id="target_type_selector"
+                  name="target_type_selector"
+                  class="form-control"
+                  placeholder="Please select the Target Type *"
+                  [disabled] = "selectorsList.length === 0"
+                  ngDefaultControl
+                  ngModel
+                  #target_type_selector="ngModel"
+                  required
+                  [ngClass]="{
+                    'is-invalid': target_type_selector.touched && target_type_selector.invalid
+                  }"
+                >
+                  <option value="" selected disabled>Select Target Type</option>
+                  <option value="conversion">Conversion</option>
+                  <option value="revenue">Revenue</option>
+                </select>
+                <div *ngIf = "target_type_selector.touched && target_type_selector.invalid" class="invalid-feedback">
+                  Please select Target type
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 p-2">
+              <div class="form-group">
+                <label for="currency_selector" class="fw-bold mb-2"
+                  >Currency Selector *</label
+                >
+                <select
+                  id="currency_selector"
+                  name="currency_selector"
+                  class="form-control"
+                  placeholder="Please select the Currency *"
+                  ngDefaultControl
+                  [ngModel]="defaultCurrency"
+                  #currency_selector="ngModel"
+                  required
+                >
+                  <option value="" disabled>Select Currency Type</option>
+                  <option value="USD">US Dollar</option>
+                  <option value="GBP">Pounds Sterling</option>
+                  <option value="EUR">Euro</option>
+                  <option value="AUD">Australlian Dollar</option>
+                  <option value="JPY">Japanese Yen</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-12 col-xs-12 p-2">
+              <button
+                type="submit"
+                class="btn btn-success btn-send pt-2 btn-block"
+                value="Submit"
+                [disabled]="
+                  !explorerInputForm.form.valid ||
+                  dateSelectorErrorBool === true
+                "
+                (click)="(onSubmit(explorerInputForm))"
+              >Submit</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

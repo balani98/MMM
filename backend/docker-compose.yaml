@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  robyn:
+    build: ./robyn
+    networks:
+      - global-mmm-network
+    ports:
+      - "8001:8001"
+  pymc:
+    build: ./pymc
+    networks:
+      - global-mmm-network
+    ports:
+      - "8003:8003"
+  main-api-global-mmm:
+    build: ./main-api-global-mmm
+    networks:
+      - global-mmm-network
+    ports:
+      - "8000:8000"
+networks:
+  global-mmm-network:
+    driver: bridge

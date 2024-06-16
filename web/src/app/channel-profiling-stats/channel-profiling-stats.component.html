@@ -1,0 +1,82 @@
+<div
+  role="tabpanel"
+  class="row tab-pane col-md-12 col-lg-12 col-sm-12 p-2 active"
+>
+  <div class="col-lg-6 col-md-6 col-sm-6">
+    <table class="table table-condensed stats">
+      <tbody>
+        <tr>
+          <th>Distinct</th>
+          <td>{{ variableStats?.n_distinct}}</td>
+        </tr>
+        <tr>
+          <th>Distinct (%)</th>
+          <td>{{ variableStats?.p_distinct | convertToPercentage | roundingPipe:2}} %</td>
+        </tr>
+        <tr>
+          <th>Missing</th>
+          <td>{{ variableStats?.n_missing }}</td>
+        </tr>
+        <tr>
+          <th>Missing (%)</th>
+          <td>{{ variableStats?.p_missing | convertToPercentage| roundingPipe:2 }} %</td>
+        </tr>
+        <tr>
+          <th>Infinite</th>
+          <td>{{ variableStats?.n_infinite }}</td>
+        </tr>
+        <tr>
+          <th>Infinite (%)</th>
+          <td>{{ variableStats?.p_infinite | convertToPercentage| roundingPipe:2 }} %</td>
+        </tr>
+        <tr>
+          <th>Mean</th>
+          <td>{{ variableStats?.mean| roundingPipe:2}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-lg-6 col-md-6 col-sm-6">
+    <table class="table table-condensed stats">
+      <tbody>
+        <tr>
+          <th>Minimum</th>
+          <td>{{ variableStats?.min | roundingPipe:2}}</td>
+        </tr>
+        <tr>
+          <th>Maximum</th>
+          <td>{{ variableStats?.max| roundingPipe:2}}</td>
+        </tr>
+        <tr>
+          <th>Zeros</th>
+          <td>{{ variableStats?.n_zeros | shortNumber}}</td>
+        </tr>
+        <tr>
+          <th>Zeros (%)</th>
+          <td>{{ variableStats?.p_zeros | convertToPercentage | roundingPipe:2 }} %</td>
+        </tr>
+        <tr>
+          <th>Negative</th>
+          <td>{{ variableStats?.n_negative | shortNumber}}</td>
+        </tr>
+        <tr>
+          <th>Negative (%)</th>
+          <td>{{ variableStats?.p_negative | convertToPercentage| roundingPipe:2 }} %</td>
+        </tr>
+        <tr>
+          <th>Memory size</th>
+          <td>{{ variableStats?.memory_size}} B</td>
+        </tr>
+      </tbody>
+    </table>
+    <div
+      style="display: flex; justify-content: end"
+      (click)="(downloadDetailedEDAReport)"
+    >
+      <a (click)="downloadDetailedEDAReport()">
+        <fa-icon [icon]="faDownload" style="font-size: 1.5rem; color: #ff4081;cursor:pointer"></fa-icon>
+      </a>
+    </div>
+  </div>
+</div>
