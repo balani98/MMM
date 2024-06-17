@@ -26,6 +26,15 @@ RUN apt-get update && apt-get install -y \
     libcurl4-openssl-dev \
     libxml2-dev \
     cmake 
+
+# Create a group and user
+RUN groupadd -r appgroup && useradd -r -g appgroup appuser
+
+# Change ownership of the directory to the appuser
+RUN chown -R appuser:appgroup /app
+
+
+
 # set the env var
 ENV ENVIRONMENT=DOCKER
 
