@@ -65,18 +65,19 @@ def read_csv_from_gcs(blob_name):
 
 def read_file(filename):
     data=read_csv_from_gcs(filename)
+    logging.info("file read successfully")
     filename = os.path.splitext(filename)[0]
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-    filename_for_saving = f"Input_{filename}_{timestamp}.csv" 
-    filename_for_saving_json = f"Input_{filename}_{timestamp}.json"  
-    input_csv_folder = 'Input_csv' 
-    input_json_folder = 'Input_json' 
-    input_csv_path = os.path.join(input_csv_folder, filename_for_saving) 
-    input_json_path = os.path.join(input_json_folder, filename_for_saving_json)  
-    data.to_csv(input_csv_path, index=False)
-    data_json = data.to_json(orient='records') 
-    with open(input_json_path, 'w') as json_file:
-        json.dump(data_json, json_file, indent=4)  
+    # filename_for_saving = f"Input_{filename}_{timestamp}.csv" 
+    # filename_for_saving_json = f"Input_{filename}_{timestamp}.json"  
+    # input_csv_folder = 'Input_csv' 
+    # input_json_folder = 'Input_json' 
+    # input_csv_path = os.path.join(input_csv_folder, filename_for_saving) 
+    # input_json_path = os.path.join(input_json_folder, filename_for_saving_json)  
+    # data.to_csv(input_csv_path, index=False)
+    # data_json = data.to_json(orient='records') 
+    # with open(input_json_path, 'w') as json_file:
+    #     json.dump(data_json, json_file, indent=4)  
     return data
 
 def calculate_prior_mu(data, spend_variables,organic_variables):
