@@ -354,11 +354,15 @@ def compare_models_helper():
             write_json_to_gcs(BUCKET_NAME, file_path=filename,output_dict=robyn_model_results_json['body']['output_dict'], file_name_to_be_put_gcs='Output.json')
             status_log_file_to_gcs = requests.get('http://robyn:8001/api/log_file_to_gcs')
             delete_log_file_from_system_robyn = requests.delete('http://robyn:8001/api/log_file')
+            scheduler.remove_job('modelComparisonJob')
         elif best_model == "pymc":
             print("pymc results written")
             write_json_to_gcs(BUCKET_NAME, file_path=filename,output_dict=pymc_model_results_json['body']['output_dict'], file_name_to_be_put_gcs='Output.json')
             status_log_file_to_gcs = requests.get('http://pymc:8003/api/log_file_to_gcs')
             delete_log_file_from_system_pymc = requests.delete('http://robyn:8003/api/log_file')
+            scheduler.remove_job('robynJob')
+            scheduler.remove_job('pymcJob')
+            scheduler.remove_job('modelComparisonJob')
         # produce the notification
         notify()
         # stop the scheduler
@@ -381,6 +385,9 @@ def compare_models_helper():
         status_log_file_to_gcs_pymc = requests.get('http://pymc:8003/api/log_file_to_gcs')
         delete_log_file_from_system_robyn = requests.delete('http://robyn:8001/api/log_file')
         delete_log_file_from_system_pymc = requests.delete('http://pymc:8003/api/log_file')
+        scheduler.remove_job('robynJob')
+        scheduler.remove_job('pymcJob')
+        scheduler.remove_job('modelComparisonJob')
         # delete the log file
         # produce the notification
         notify()
@@ -395,6 +402,9 @@ def compare_models_helper():
         # delete the log file
         delete_log_file_from_system_pymc = requests.delete('http://robyn:8001/api/log_file')
         delete_log_file_from_system_pymc = requests.delete('http://pymc:8003/api/log_file')
+        scheduler.remove_job('robynJob')
+        scheduler.remove_job('pymcJob')
+        scheduler.remove_job('modelComparisonJob')
         # produce the notification
         notify()
     elif global_robyn_status == "5004" and global_pymc_status == "5004":
