@@ -108,8 +108,9 @@ def process_data(data, filename):
         write_json_to_gcs(BUCKET_NAME, filename, output_dict, file_name_to_be_put_gcs=filename_for_saving)
         # with open(output_json_path, 'w') as json_file:
         #     json.dump(output_dict, json_file, indent=4)
+        return output_dict
     except Exception as error:
         logging.info('5003')
     logging.info('5002')
-    return output_dict
+    
 
