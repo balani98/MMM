@@ -359,10 +359,10 @@ def compare_models_helper():
             print("pymc results written")
             write_json_to_gcs(BUCKET_NAME, file_path=filename,output_dict=pymc_model_results_json['body']['output_dict'], file_name_to_be_put_gcs='Output.json')
             status_log_file_to_gcs = requests.get('http://pymc:8003/api/log_file_to_gcs')
-            delete_log_file_from_system_pymc = requests.delete('http://robyn:8003/api/log_file')
-            scheduler.remove_job('robynJob')
-            scheduler.remove_job('pymcJob')
-            scheduler.remove_job('modelComparisonJob')
+            delete_log_file_from_system_pymc = requests.delete('http://pymc:8003/api/log_file')
+        scheduler.remove_job('robynJob')
+        scheduler.remove_job('pymcJob')
+        scheduler.remove_job('modelComparisonJob')
         # produce the notification
         notify()
         # stop the scheduler
