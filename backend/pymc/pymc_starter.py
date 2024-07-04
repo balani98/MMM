@@ -91,8 +91,8 @@ def process_data(data, filename):
         response_curve = pymc_func.get_multi_line_chart_data2(response_df)
         metrics_dict, output_train, output_test = pymc_func.predict_metrics(mmm,X_train_sorted,y_train_sorted,X_test_sorted,y_test_sorted,data,contribution_percentage,data['target_variable'])
         logging.info("Different metrics are generated")
-        pymc_func.graphs(output_train,y_train_sorted[data['date_variable']],y_train_sorted[data['target_variable']],metrics_dict['r2_train'],metrics_dict['adjusted_r2_train'],metrics_dict['rmse_train'],metrics_dict['nrmse_train'],metrics_dict['mape_train'],data['filename'])
-        pymc_func.test_graphs(output_test,y_test_sorted[data['date_variable']],y_test_sorted[data['target_variable']],metrics_dict['r2_test'],metrics_dict['adjusted_r2_test'],metrics_dict['rmse_test'],metrics_dict['nrmse_test'],metrics_dict['mape_test'],data['filename'])
+        #pymc_func.graphs(output_train,y_train_sorted[data['date_variable']],y_train_sorted[data['target_variable']],metrics_dict['r2_train'],metrics_dict['adjusted_r2_train'],metrics_dict['rmse_train'],metrics_dict['nrmse_train'],metrics_dict['mape_train'],data['filename'])
+        #pymc_func.test_graphs(output_test,y_test_sorted[data['date_variable']],y_test_sorted[data['target_variable']],metrics_dict['r2_test'],metrics_dict['adjusted_r2_test'],metrics_dict['rmse_test'],metrics_dict['nrmse_test'],metrics_dict['mape_test'],data['filename'])
         output_dict = {
             'metrics':metrics_dict,
             'effective_share':contribution_percentage,

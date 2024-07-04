@@ -135,6 +135,13 @@ def delete_log_file():
 @app.route('/api/log_file_to_gcs',methods=['GET'])
 def log_file_to_gcs():
     upload_log_to_gcs(BUCKET_NAME, log_file_path, file_path)
+    result = { 
+            'body': {
+                'message':'log file pushed to GCS'
+                },
+            'status':200
+            }
+    return result,200
     
 
     
