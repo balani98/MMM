@@ -20,7 +20,7 @@ import os
 from datetime import datetime
 #import pymc.sampling_jax
 import configparser
-
+import logging 
 from pymc_marketing.mmm.transformers import geometric_adstock, logistic_saturation
 from pymc_marketing.mmm.delayed_saturated_mmm import DelayedSaturatedMMM
 
