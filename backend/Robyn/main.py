@@ -137,7 +137,7 @@ def delete_log_file():
 def log_file_to_gcs():
     # Generate timestamp
     file_name =  get_latest_folder_with_files(BUCKET_NAME,file_path)
-    remote_file_path = file_name + '/robyn_info.log' 
+    remote_file_path =  str(file_path) + str(file_name) + '/robyn_info.log' 
     upload_log_to_gcs(BUCKET_NAME, log_file_path, remote_file_path)
     result = { 
             'body': {
