@@ -34,7 +34,7 @@ def compare_model_result(output_robyn, output_pymc):
   """
 
   # Thresholds for rssd and adjusted R-squared difference
-  rssd_threshold = 0.15
+  rssd_threshold = 0.30
   adj_rsq_diff_threshold = 0.15
 
   # Track the best model and its metrics
