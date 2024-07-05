@@ -9,6 +9,7 @@ from push_gcs import create_directory_with_timestamp,upload_log_to_gcs
 import configparser
 import json
 from check_pymc_logs import check_pymc_logs
+import datetime
 app = Flask(__name__)
 # CORS CONFIG
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -133,6 +134,12 @@ def delete_log_file():
         
 @app.route('/api/log_file_to_gcs',methods=['GET'])
 def log_file_to_gcs():
+    # Generate timestamp
+    timestamp_ = str(datetime.datetime.now().timestamp())
+    # Format timestamp
+    timestamp_ = timestamp_.replace(".", "")  # Remove dot from timestamp
+
+    file_path = file_path + '/pymc_info_' + timestamp_  + '.log' 
     upload_log_to_gcs(BUCKET_NAME, log_file_path, file_path)
     result = { 
             'body': {
