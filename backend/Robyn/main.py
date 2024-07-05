@@ -136,10 +136,8 @@ def delete_log_file():
 @app.route('/api/log_file_to_gcs',methods=['GET'])
 def log_file_to_gcs():
     # Generate timestamp
-    timestamp_ = str(datetime.datetime.now().timestamp())
-    # Format timestamp
-    timestamp_ = timestamp_.replace(".", "")  # Remove dot from timestamp
-    file_path = file_path + '/robyn_info_' + timestamp_ +  '.log' 
+    file_name =  get_latest_folder_with_files(BUCKET_NAME,file_path)
+    file_path = file_name + '/robyn_info.log' 
     upload_log_to_gcs(BUCKET_NAME, log_file_path, file_path)
     result = { 
             'body': {
