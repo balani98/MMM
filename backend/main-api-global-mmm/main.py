@@ -321,6 +321,37 @@ def generate_resp_curves():
     except Exception as exp:
         print(str(exp))
         return {"error": str(exp)}, 500
+    
+@app.route('/api/predictor/generate_response_metrics',methods=['GET'])
+def generate_resp_curve_metrics():
+    try:
+        file_name =  get_latest_folder_with_files(BUCKET_NAME,file_path)
+        if file_name is None:
+            result = { 
+                    'body': {
+                        'message': 'Model is in training phase'
+                        },
+                    'status':400
+                }
+            return result,400
+        else:
+            print(file_name)
+           
+            output_json_file = str(file_path)  + '/'+ str(file_name) + '/Output.json'
+            output_json_file =  extract_json_from_gcs(BUCKET_NAME, output_json_file)
+            result = { 
+                        'body': {
+                        
+                            'metrics':output_json_file["metrics"],
+                            'message': 'Predictor response curves data sent'
+                            },
+                        'status':200
+                    }
+        return result,200
+    except Exception as exp:
+        print(str(exp))
+        return {"error": str(exp)}, 500
+
 
 def read_robyn_log_file_periodically():
     robyn_status_response = requests.get('http://robyn:8001/api/check_robyn_logs')
