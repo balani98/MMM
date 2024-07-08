@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 })
 export class FileUploadService {
   //uri = 'https://global-mso-api-lr4grty6xq-uc.a.run.app';
-  uri = 'http://34.69.111.69:5000';
+  uri = 'http://34.69.111.69:8000';
   //uri = 'http://localhost:8000'
   constructor(private http:HttpClient) { }
   httpOptions = {

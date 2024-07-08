@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { getData } from 'src/data/data';
 import { PredictorService } from 'src/services/predictor.service';
 import { WebSocketService } from 'src/services/web-socket.service';
+import { Alert } from './alert.model';
 
 @Component({
   selector: 'app-predictor-form',
@@ -13,7 +14,7 @@ export class PredictorFormComponent implements OnInit {
   constructor(private predictorService: PredictorService,private websocketService:WebSocketService) {} 
   @Output() responseCurvesData = new EventEmitter<any>();
   @Output() effectiveSharesData = new EventEmitter<any>();
-  notifications: any[] = [];
+  notifications: Alert[] = [];
   countries = new FormControl('');
   contextual_vars = new FormControl('');
   adstocklist_vars = new FormControl('');
@@ -120,6 +121,8 @@ export class PredictorFormComponent implements OnInit {
     this.websocketService.listen('notification').subscribe((data) => {
       console.log('deeps',data)
       this.notifications.push(data);
+      alert(data.message)
+      
     });
   }
 }

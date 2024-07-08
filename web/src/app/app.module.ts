@@ -31,6 +31,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { CurrencySymbolPipe } from 'src/pipes/currency-symbol.pipe';
 import { RoundingPipe } from 'src/pipes/rounding.pipe';
 import { ValidationReportStatsComponent } from './validation-report-stats/validation-report-stats.component';
+import { ModelHealthComponent } from './model-health/model-health.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { ValidationReportStatsComponent } from './validation-report-stats/valida
     ConvertToPercentagePipe,
     CurrencySymbolPipe,
     RoundingPipe,
-    ValidationReportStatsComponent
+    ValidationReportStatsComponent,
+    ModelHealthComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +70,7 @@ import { ValidationReportStatsComponent } from './validation-report-stats/valida
     MatCheckboxModule,
     NgxSpinnerModule
   ],
-  providers: [DecimalPipe],
+  providers: [DecimalPipe,RoundingPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -14,7 +14,7 @@ export class ExplorerService {
   };
   constructor(private http:HttpClient) { }
   //uri = 'https://global-mso-api-lr4grty6xq-uc.a.run.app';
-  uri = 'http://34.69.111.69:5000';
+  uri = 'http://34.69.111.69:8000';
   //uri = 'http://localhost:8000'
   dateCheck(dateSelector:any){
     var body = {

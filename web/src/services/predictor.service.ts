@@ -14,7 +14,7 @@ export class PredictorService {
     })
   };
   constructor(private http:HttpClient) { }
-  uri = 'http://34.69.111.69:5000';
+  uri = 'http://34.69.111.69:8000';
   //uri = 'http://localhost:8000'
   getPredictorInputs(){
     return this.http.get(`${this.uri}/api/predictor`,this.httpOptions);
@@ -25,5 +25,9 @@ export class PredictorService {
   }
   generateRespCurves() {
     return this.http.get(`${this.uri}/api/predictor/generate_response_curves`, this.httpOptions);
+  }
+
+  generateRespCurveMetrics() {
+    return this.http.get(`${this.uri}/api/predictor/generate_response_metrics`, this.httpOptions);
   }
 }

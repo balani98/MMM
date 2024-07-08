@@ -1,65 +1,114 @@
-<div class="user-dashboard">
-    <h1 class="text-center">
-        Model Performance
-      </h1>
-    <div class="row">
+<div class="user-dashboard" *ngIf="predictorMetricsInputs">
+	<h1 class="text-center">
+		Model Performance
+		</h1>
+	<div class="row">
+		<div class="sales">
+			<h2>Test KPIs</h2>
+			</div>
+			<div class="row">
+				<div class="col-lg-6 card-deck">
+					<div class="card card-stats mb-6 mb-xl-6">
+						<div class="card-body">
+							<div class="row">
+								<div class="col" id="total_budget_metric">
+									<h5 class="card-title mb-0">AdJ R2</h5>
+									<span class="h2 font-weight-bold mb-0">{{responseMetrics?.adjusted_r2_test}}</span>
+								</div>
+								<div class="col-auto">
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 card-deck">
+					<div class="card card-stats mb-6 mb-xl-6">
+						<div class="card-body">
+							<div class="row">
+								<div class="col" id="total_target_metric">
+									<h5 class="card-title mb-0">
+										MAPE
+									</h5>
+									<span class="h2 font-weight-bold mb-0">{{responseMetrics?.mape_test | roundingPipe:3}}</span>
+								</div>
+								<div class="col-auto">
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
 
 
-            <div class="sales">
-                <h2>KPIs</h2>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 card-deck">
-                  <div class="card card-stats mb-4 mb-xl-4">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col" id="total_budget_metric">
-                          <h5 class="card-title mb-0">AdJ R2</h5>
-                          <span class="h2 font-weight-bold mb-0">25%</span>
-                        </div>
-                        <div class="col-auto">
-                            
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-4 card-deck">
-                  <div class="card card-stats mb-4 mb-xl-4">
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col" id="total_target_metric">
-                          <h5 class="card-title mb-0">
-                            MAPE
-                          </h5>
-                          <span class="h2 font-weight-bold mb-0">500</span>
-                        </div>
-                        <div class="col-auto">
-                          
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-4 card-deck">
-                    <div class="card card-stats mb-4 mb-xl-4">
-                      <div class="card-body">
-                        <div class="row">
-                          <div class="col" id="total_target_metric">
-                            <h5 class="card-title mb-0">
-                                RSSD
-                            </h5>
-                            <span class="h2 font-weight-bold mb-0">987</span>
-                          </div>
-                          <div class="col-auto">
-                            
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-              </div>
+	</div>
+	<div class="row">
 
 
+		<div class="sales">
+			<h2>Train KPIs</h2>
+		</div>
+		<div class="row">
+			<div class="col-lg-6 card-deck">
+				<div class="card card-stats mb-6 mb-xl-6">
+					<div class="card-body">
+						<div class="row">
+							<div class="col" id="total_budget_metric">
+								<h5 class="card-title mb-0">AdJ R2</h5>
+								<span class="h2 font-weight-bold mb-0">{{responseMetrics?.adjusted_r2_train}}</span>
+							</div>
+							<div class="col-auto">
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6 card-deck">
+				<div class="card card-stats mb-6 mb-xl-6">
+					<div class="card-body">
+						<div class="row">
+							<div class="col" id="total_target_metric">
+								<h5 class="card-title mb-0">
+									MAPE
+								</h5>
+								<span class="h2 font-weight-bold mb-0">{{responseMetrics?.mape_train | roundingPipe:3}}</span>
+							</div>
+							<div class="col-auto">
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			</div>
+
+
+</div>
+<div class="row">
+  <div class="sales">
+    <h2>Other Performance Metrics</h2>
     </div>
+    <div class="row">
+      <div class="col-lg-6 card-deck">
+        <div class="card card-stats mb-6 mb-xl-6">
+          <div class="card-body">
+            <div class="row">
+              <div class="col" id="total_budget_metric">
+                <h5 class="card-title mb-0">RSSD</h5>
+                <span class="h2 font-weight-bold mb-0">{{responseMetrics?.rssd}}</span>
+              </div>
+              <div class="col-auto">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+
+</div>
 </div>
