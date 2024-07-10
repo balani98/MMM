@@ -431,41 +431,90 @@ class robyn_predictor:
     #     return(BestModel)
     #     }
          
+    r_SMAPE <- function(actual, pred) {
+        # Calculate SMAPE
+        smape <- abs(actual - pred) / (actual + pred)
+        smape <- mean(smape[!is.na(smape)])
+        return(smape)
+    }
 
-    # Getting best candidate model using RSSD, Difference of Train and Val & Max Adj Trian
-    best_candidate_model <- function(OutputFile) {
-        # Round certain columns to three significant digits
-        columns_to_round <- c("rsq_val", "rsq_train", "decomp.rssd")
-        OutputFile[columns_to_round] <- lapply(OutputFile[columns_to_round], function(x) signif(x, digits = 4))
+    r_get_smape <- function(df_temp, type, train_size, val_test_size) {
+        train_rows <- round(nrow(df_temp) * train_size)
         
-        # Filter models where Decomposition RSSD < 0.15
-        BestModel <- subset(OutputFile, decomp.rssd <= 0.15)
-        
-        # If there is no model with RSSD < 0.15, select the next best model
-        if (nrow(BestModel) == 0) {
-            BestModel <- subset(OutputFile, decomp.rssd == min(OutputFile$decomp.rssd))
-            BestModel <- subset(BestModel, rsq_train == max(BestModel$rsq_train))
+        if (type == "train") {
+            df_smape <- df_temp[1:train_rows, ]
         } else {
-            # Calculate the difference in R-squared
-            BestModel$rsq_diff <- abs(BestModel$rsq_val - BestModel$rsq_train)
-            
-            # Filter models where the absolute difference in R-squared < 0.15
-            BestModelTemp <- BestModel
-            BestModel <- subset(BestModel, rsq_diff <= 0.15)
-            
-            # If there is no model with R-squared difference < 0.15, select the next best model
-            if (nrow(BestModel) == 0) {
-                BestModel <- subset(BestModelTemp, rsq_diff == min(BestModelTemp$rsq_diff))
-                BestModel <- subset(BestModel, rsq_train == max(BestModel$rsq_train))
-            } else {
-                # Select the best model based on criteria
-                BestModel <- subset(BestModel, rsq_train == max(BestModel$rsq_train))
-            }
+            test_rows <- round(nrow(df_temp) * (train_size + val_test_size))
+            df_smape <- df_temp[(train_rows + 1):test_rows, ]
+        }
+        
+        smape <- r_SMAPE(df_smape$dep_var, df_smape$depVarHat)
+        
+        return(smape)
         }
 
+    compute_smape_values <- function(df_predicted, df_model_metrics, train_size, val_test_size) {
+        df_model_metrics$smape_train <- 0
+        df_model_metrics$smape_test <- 0
+        df_predicted <- df_predicted[, c("solID", "dep_var", "depVarHat")]
+        for (model_id in unique(df_predicted$solID)) {
+            new_df <- df_predicted[df_predicted$solID == model_id, ]
+            smape_train <- r_get_smape(new_df, "train", train_size, val_test_size)
+            df_model_metrics$smape_train[df_model_metrics$solID == model_id] <- smape_train
+            smape_test <- r_get_smape(new_df, "test", train_size, val_test_size)
+            df_model_metrics$smape_test[df_model_metrics$solID == model_id] <- smape_test
+        }
+        return(df_model_metrics)
+        }
+
+    best_candidate_model <- function(OutputFile) {
+        # Round certain columns to three significant digits
+        columns_to_round <- c("rsq_val", "rsq_train", "decomp.rssd", "smape_train", "smape_test")
+        OutputFile[columns_to_round] <- lapply(OutputFile[columns_to_round], function(x) signif(x, digits = 2))
+        
+        # Filter models where adjusted r-sq for train >= 0.80
+        BestModel <- subset(OutputFile, rsq_train >= 0.80)
+        # If there is no model with r-sq for train >= 0.80, select the next best model
+        if (n_distinct(BestModel$solID) == 0) {
+            BestModel <- subset(OutputFile, rsq_train == max(OutputFile$rsq_train))}
+        if (n_distinct(BestModel$solID) == 1) {
+            return(BestModel)}
+        
+        # Calculate the difference in R-squared
+        BestModel$rsq_diff <- abs(BestModel$rsq_val - BestModel$rsq_train)
+        # Filter models where the absolute difference in R-squared <= 0.10
+        BestModel_Temp <- BestModel
+        BestModel <- subset(BestModel, rsq_diff <= 0.10)
+        # If there is no model with absolute difference in R-squared <= 0.10, select the next best model
+        if (n_distinct(BestModel$solID) == 0) {
+            BestModel <- subset(BestModel_Temp, rsq_diff == min(BestModel_Temp$rsq_diff))}
+        if (n_distinct(BestModel$solID) == 1) {
+            return(BestModel)}
+        
+        # Filter models where train mape <= 0.15
+        BestModel_Temp <- BestModel
+        BestModel <- subset(BestModel, smape_train <= 0.15)
+        # If there is no model with train mape <= 0.15, select the next best model
+        if (n_distinct(BestModel$solID) == 0) {
+            BestModel <- subset(BestModel_Temp, smape_train == min(BestModel_Temp$smape_train))}
+        if (n_distinct(BestModel$solID) == 1) {
+            return(BestModel)}
+        
+        # Filter models where rssd <= 0.30
+        BestModel_Temp <- BestModel
+        BestModel <- subset(BestModel, decomp.rssd <= 0.30)
+        # If there is no model with decomp.rssd <= 0.30, select the next best model
+        if (n_distinct(BestModel$solID) == 0) {
+            BestModel <- subset(BestModel_Temp, decomp.rssd == min(BestModel_Temp$decomp.rssd))}
+        if (n_distinct(BestModel$solID) == 1) {
+            return(BestModel)}
+        
+        BestModel <- subset(BestModel, decomp.rssd == min(BestModel$decomp.rssd))
+        if (n_distinct(BestModel$solID) > 1) {
+            BestModel <- subset(BestModel, rsq_train == max(BestModel$rsq_train))}
         # Export the selected model
         return(BestModel)
-    }
+        }
 
     # Saving One-Pager for Best Candidate Model
     one_pager<-function(InputCollect, OutputCollect, modelID, filename){
@@ -540,7 +589,7 @@ class robyn_predictor:
         }
 
     # main function for robyn r code         
-    robyn_code<-function(df_, robyn_input, adstock_type, iterations, trials, train_size, filename){
+    robyn_code<-function(df_, robyn_input, adstock_type, iterations, trials, train_size, val_test_size, filename){
         # install.packages('reticulate')
         library(reticulate)
         virtualenv_create('r-reticulate')
@@ -614,6 +663,9 @@ class robyn_predictor:
         
         Outputtemp <- OutputCollect$xDecompVecCollect 
         #print(Outputtemp)
+        
+        # Computing mape for selecting best candidate model
+        OutputFile <- compute_smape_values(Outputtemp, OutputFile, train_size, val_test_size)
 
         print("** Selecting Best Candidate Model **")
         BestModel <- best_candidate_model(OutputFile)
@@ -750,8 +802,10 @@ class robyn_predictor:
                 'rmse_test': self.convert_nrmse_to_rmse(BestModel_df_py['nrmse_val'][0], "test", train_size, val_test_size, user_params),
                 'nrmse_train': BestModel_df_py['nrmse_train'][0],
                 'nrmse_test': BestModel_df_py['nrmse_val'][0],
-                'mape_train':self.get_smape(Actualvsfitted_df_py, "train", train_size, val_test_size),
-                'mape_test':self.get_smape(Actualvsfitted_df_py, "test", train_size, val_test_size),
+                'mape_train':BestModel_df_py['train_smape'][0],
+                'mape_test':BestModel_df_py['test_smape'][0],
+                # 'mape_train':self.get_smape(Actualvsfitted_df_py, "train", train_size, val_test_size),
+                # 'mape_test':self.get_smape(Actualvsfitted_df_py, "test", train_size, val_test_size),
                 'diff_adjusted_r2': abs(BestModel_df_py['rsq_train'][0]-BestModel_df_py['rsq_val'][0])
                 }
         
@@ -853,7 +907,7 @@ class robyn_predictor:
 
             # executing robyn code and saving response - R Code
             logging.info("Initializing model training for Robyn in R code")
-            df_return = robyn_code(self.df, r_user_params, adstock_type, model_iterations, model_trials, train_size, filename)
+            df_return = robyn_code(self.df, r_user_params, adstock_type, model_iterations, model_trials, train_size, val_test_size, filename)
             df1 = df_return[0]
             df2 = df_return[1]
             df3 = df_return[2]
