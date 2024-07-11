@@ -802,8 +802,8 @@ class robyn_predictor:
                 'rmse_test': self.convert_nrmse_to_rmse(BestModel_df_py['nrmse_val'][0], "test", train_size, val_test_size, user_params),
                 'nrmse_train': BestModel_df_py['nrmse_train'][0],
                 'nrmse_test': BestModel_df_py['nrmse_val'][0],
-                'mape_train':BestModel_df_py['train_smape'][0],
-                'mape_test':BestModel_df_py['test_smape'][0],
+                'mape_train':BestModel_df_py['smape_train'][0],
+                'mape_test':BestModel_df_py['smape_test'][0],
                 # 'mape_train':self.get_smape(Actualvsfitted_df_py, "train", train_size, val_test_size),
                 # 'mape_test':self.get_smape(Actualvsfitted_df_py, "test", train_size, val_test_size),
                 'diff_adjusted_r2': abs(BestModel_df_py['rsq_train'][0]-BestModel_df_py['rsq_val'][0])
