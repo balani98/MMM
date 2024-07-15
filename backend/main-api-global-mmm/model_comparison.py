@@ -66,30 +66,30 @@ def compare_model_result(output_robyn, output_pymc, tolerance=1.0/100):
 
     # if adj r2 robyn is inf and pymc is not
     if robyn_infinite_adjr2 and not pymc_infinite_adjr2:
-        return {'best_model': 'pymc', **output_pymc}
+        return 'pymc'
     # if adj r2 pymc is inf and robyn is not
     elif pymc_infinite_adjr2 and not robyn_infinite_adjr2:
-        return {'best_model': 'robyn', **output_robyn}
+        return 'robyn'
     # if adj r2 for robyn and pymc is inf
     elif robyn_infinite_adjr2 and pymc_infinite_adjr2:
         # # if mape robyn is inf and pymc is not
         if robyn_infinite_mape and not pymc_infinite_mape:
-            return {'best_model': 'pymc', **output_pymc}
+            return 'pymc'
         # if mape pymc is inf and robyn is not
         elif pymc_infinite_mape and not robyn_infinite_mape:
-            return {'best_model': 'robyn', **output_robyn}
+            return 'robyn'
         # if mape for robyn and pymc is inf or # MAPE is within tolerance, compare RSSD
         elif (robyn_infinite_mape and pymc_infinite_mape) or within_tolerance(output_robyn['mape_train'], output_pymc['mape_train'], tolerance):
             if output_robyn['rssd'] < output_pymc['rssd']:
-                return {'best_model': 'robyn', **output_robyn}
+                return 'robyn'
             else:
-                return {'best_model': 'pymc', **output_pymc}
+                return 'pymc'
         else:
             # MAPE is not within tolerance, choose the lower MAPE
             if output_robyn['mape_train'] < output_pymc['mape_train']:
-                return {'best_model': 'robyn', **output_robyn}
+                return 'robyn'
             else:
-                return {'best_model': 'pymc', **output_pymc}
+                return 'pymc'
             
 
     # Checking for scenario:
@@ -98,15 +98,15 @@ def compare_model_result(output_robyn, output_pymc, tolerance=1.0/100):
     # Compare MAPE if R² or Adjusted R² is within tolerance
     if within_tolerance(output_robyn['adjusted_r2_train'], output_pymc['adjusted_r2_train'], tolerance):
         if robyn_infinite_mape and not pymc_infinite_mape:
-            return {'best_model': 'pymc', **output_pymc}
+            return 'pymc'
         elif pymc_infinite_mape and not robyn_infinite_mape:
-            return {'best_model': 'robyn', **output_robyn}
+            return 'robyn'
         elif robyn_infinite_mape and pymc_infinite_mape:
             # Both mape are infinite, compare RSSD
             if output_robyn['rssd'] < output_pymc['rssd']:
-                return {'best_model': 'robyn', **output_robyn}
+                return 'robyn'
             else:
-                return {'best_model': 'pymc', **output_pymc}
+                return 'pymc'
             
 
     # Checking for normal scenarios and tolerance, when neither adj r2 or mape is inf
@@ -152,7 +152,7 @@ def compare_model_result(output_robyn, output_pymc, tolerance=1.0/100):
     # Add the name of the best model to the metrics as the first entry
     best_metrics = {'best_model': best_model, **best_metrics}
 
-    return best_metrics
+    return best_model
 
 def compare_models(robyn_data, pymc_data):
     # Get data from the request body
