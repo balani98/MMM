@@ -380,6 +380,7 @@ def compare_models_helper():
         pymc_model_results_json = pymc_model_results.json()
         best_model = compare_models(robyn_model_results_json['body']['output_dict'], pymc_model_results_json['body']['output_dict'])
         filename = create_directory_with_timestamp(BUCKET_NAME, file_path)
+        print("best model",best_model)
         if best_model == "robyn":
             print("robyn results written")
             write_json_to_gcs(BUCKET_NAME, file_path=filename,output_dict=robyn_model_results_json['body']['output_dict'], file_name_to_be_put_gcs='Output.json')

@@ -166,6 +166,6 @@ def compare_models(robyn_data, pymc_data):
 
     # Compare models and get best metrics
     best_model = compare_model_result(output_robyn, output_pymc)
-
+    print("best model comparison done",best_model)
     # Return JSON response with best model metrics
     return best_model
