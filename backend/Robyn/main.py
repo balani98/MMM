@@ -50,7 +50,8 @@ def build_the_model():
         print("1",request)
         body = request.get_json()
         print("2",body)
-        filename = create_directory_with_timestamp(BUCKET_NAME, file_path)
+        #filename = create_directory_with_timestamp(BUCKET_NAME, file_path)
+        filename = file_path + '/' + body["model_folder_to_write"] + '/'
         res = celery_app.send_task('tasks.build_model_output_with_celery', args=[body, filename])
         if len(body['control_variables']) == 0:
             body['control_variables'] = None
