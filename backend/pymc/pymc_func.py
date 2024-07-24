@@ -220,6 +220,13 @@ def create_response_df(volume_contribution, spend_df, spend_variables, media_var
   merged_df = pd.merge(filtered_df, filtered_df_2, how='inner', on=['date', 'channel'])
   return merged_df
 
+def sort_response_curve(data):
+    sorted_data = data.copy()
+    for curve in sorted_data["response_curve"]:
+        sorted_values = sorted(curve["values"], key=lambda x: (x["spend"], x["target"]))
+        curve["values"] = sorted_values
+    return sorted_data
+
 def get_multi_line_chart_data2(Response_df):
     """Saving the response curves for the trained model as json dump
     Args:
@@ -248,6 +255,7 @@ def get_multi_line_chart_data2(Response_df):
         if index == len(multi_line_chart_json)-1:
             multi_line_chart_data2.append(multi_line_chart_obj)
         old_key = dimension_key
+    multi_line_chart_data2 = sort_response_curve(multi_line_chart_data2)
     return multi_line_chart_data2
 
 def predict_metrics(mmm,X_train_sorted,y_train_sorted,X_test_sorted,y_test_sorted,data,contribution_percentage,target):
