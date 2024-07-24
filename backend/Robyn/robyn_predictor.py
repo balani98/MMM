@@ -19,6 +19,7 @@ warnings.filterwarnings('ignore')
 import configparser
 Config = configparser.ConfigParser()
 from push_gcs import write_json_to_gcs
+from push_gcs import write_csv_to_gcs
 import math
 Config.read('config.ini')
 if os.environ.get('ENVIRONMENT') == 'PRODUCTION':
@@ -468,17 +469,28 @@ class robyn_predictor:
         }
 
     best_candidate_model <- function(OutputFile) {
-        # Round certain columns to three significant digits
-        columns_to_round <- c("rsq_val", "rsq_train", "decomp.rssd", "smape_train", "smape_test")
-        OutputFile[columns_to_round] <- lapply(OutputFile[columns_to_round], function(x) signif(x, digits = 2))
+        # OutputFile$rsq_diff <- abs(OutputFile$rsq_val - OutputFile$rsq_train)
+        BestModel <- OutputFile
+        columns_to_round <- c("rsq_val", "rsq_train", "rsq_diff", "smape_train", "smape_test")
+        BestModel[columns_to_round] <- lapply(BestModel[columns_to_round], function(x) signif(x, digits = 2))
+        
+        # Restricting rssd <= 1
+        BestModel_Temp <- BestModel
+        BestModel <- subset(BestModel, decomp.rssd <= 0.1)
+        # If there is no model with decomp.rssd <= 0.30, select the next best model
+        if (n_distinct(BestModel$solID) == 0) {
+            BestModel <- BestModel_Temp}
+        if (n_distinct(BestModel$solID) == 1) {
+            return(subset(OutputFile, solID == BestModel$solID[1]))}
         
         # Filter models where adjusted r-sq for train >= 0.80
-        BestModel <- subset(OutputFile, rsq_train >= 0.80)
+        BestModel_Temp <- BestModel
+        BestModel <- subset(BestModel, rsq_train >= 0.80)
         # If there is no model with r-sq for train >= 0.80, select the next best model
         if (n_distinct(BestModel$solID) == 0) {
-            BestModel <- subset(OutputFile, rsq_train == max(OutputFile$rsq_train))}
+            BestModel <- subset(BestModel_Temp, rsq_train == max(BestModel_Temp$rsq_train))}
         if (n_distinct(BestModel$solID) == 1) {
-            return(BestModel)}
+            return(subset(OutputFile, solID == BestModel$solID[1]))}
         
         # Calculate the difference in R-squared
         BestModel$rsq_diff <- abs(BestModel$rsq_val - BestModel$rsq_train)
@@ -489,7 +501,7 @@ class robyn_predictor:
         if (n_distinct(BestModel$solID) == 0) {
             BestModel <- subset(BestModel_Temp, rsq_diff == min(BestModel_Temp$rsq_diff))}
         if (n_distinct(BestModel$solID) == 1) {
-            return(BestModel)}
+            return(subset(OutputFile, solID == BestModel$solID[1]))}
         
         # Filter models where train mape <= 0.15
         BestModel_Temp <- BestModel
@@ -498,7 +510,7 @@ class robyn_predictor:
         if (n_distinct(BestModel$solID) == 0) {
             BestModel <- subset(BestModel_Temp, smape_train == min(BestModel_Temp$smape_train))}
         if (n_distinct(BestModel$solID) == 1) {
-            return(BestModel)}
+            return(subset(OutputFile, solID == BestModel$solID[1]))}
         
         # Filter models where rssd <= 0.30
         BestModel_Temp <- BestModel
@@ -507,13 +519,13 @@ class robyn_predictor:
         if (n_distinct(BestModel$solID) == 0) {
             BestModel <- subset(BestModel_Temp, decomp.rssd == min(BestModel_Temp$decomp.rssd))}
         if (n_distinct(BestModel$solID) == 1) {
-            return(BestModel)}
+            return(subset(OutputFile, solID == BestModel$solID[1]))}
         
         BestModel <- subset(BestModel, decomp.rssd == min(BestModel$decomp.rssd))
         if (n_distinct(BestModel$solID) > 1) {
             BestModel <- subset(BestModel, rsq_train == max(BestModel$rsq_train))}
         # Export the selected model
-        return(BestModel)
+        return(subset(OutputFile, solID == BestModel$solID[1]))
         }
 
     # Saving One-Pager for Best Candidate Model
@@ -666,6 +678,7 @@ class robyn_predictor:
         
         # Computing mape for selecting best candidate model
         OutputFile <- compute_smape_values(Outputtemp, OutputFile, train_size, val_test_size)
+        OutputFile$rsq_diff <- abs(OutputFile$rsq_val - OutputFile$rsq_train)
 
         print("** Selecting Best Candidate Model **")
         BestModel <- best_candidate_model(OutputFile)
@@ -950,7 +963,11 @@ class robyn_predictor:
                 }
             logging.info("Metrics calculated successfully")
             logging.info("Initiating saving output to GCS")
+            blob_name_best_model = filename + 'BestModel.csv'
+            blob_name_model_result = filename + 'ModelResult.csv'
             write_json_to_gcs(BUCKET_NAME, filename, output_dict, file_name_to_be_put_gcs='Output.json')
+            write_csv_to_gcs(BestModel_df_py.reset_index(drop=True), BUCKET_NAME , blob_name_best_model)
+            write_csv_to_gcs(Model_Result_df_py.reset_index(drop=True), BUCKET_NAME, blob_name_model_result)
             logging.info("output saved to GCS")
             logging.info("Completed: Robyn")
             logging.info("5002")

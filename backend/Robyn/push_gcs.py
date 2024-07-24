@@ -96,5 +96,23 @@ def upload_log_to_gcs(bucket_name, source_file_name, destination_blob_name):
     blob.upload_from_filename(source_file_path)
 
     print(f"File {source_file_name} uploaded to {destination_blob_name} in bucket {bucket_name}")
+    
+def write_csv_to_gcs(dataframe, bucket_name, destination_blob_name):
+    # Convert DataFrame to CSV
+    csv_data = dataframe.to_csv(index=False)
+
+    # Create a storage client
+    storage_client = storage.Client()
+
+    # Get the bucket
+    bucket = storage_client.bucket(bucket_name)
+
+    # Create a blob (file) in the bucket
+    blob = bucket.blob(destination_blob_name)
+
+    # Upload the CSV data to the blob
+    blob.upload_from_string(csv_data, content_type='text/csv')
+
+    print(f'File uploaded to {bucket_name}/{destination_blob_name}')
 
 
