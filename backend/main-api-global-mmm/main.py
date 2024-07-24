@@ -82,7 +82,7 @@ global_response_df = {}
 global_filename_uploaded = ""
 global_robyn_status = {}
 global_pymc_status = {}
-
+model_folder_to_write={}
 @app.route('/notify')
 def notify():
     # Emit a notification event when this endpoint is accessed
@@ -385,7 +385,7 @@ def compare_models_helper():
         robyn_model_results_json = robyn_model_results.json()
         pymc_model_results_json = pymc_model_results.json()
         best_model = compare_models(robyn_model_results_json['body']['output_dict'], pymc_model_results_json['body']['output_dict'])
-        filename = create_directory_with_timestamp(BUCKET_NAME, file_path)
+        filename = file_path + '/' + model_folder_to_write + '/'
         print("best model",best_model)
         if best_model == "robyn":
             print("robyn results written")
@@ -416,7 +416,7 @@ def compare_models_helper():
     elif global_robyn_status == "5003" and global_pymc_status == "5002":
         print("robyn model failed but pymc model succeeded")
         pymc_model_results = requests.get('http://pymc:8003/api/pymc_model_results')
-        filename = create_directory_with_timestamp(BUCKET_NAME, file_path)
+        filename = file_path + '/' + model_folder_to_write + '/'
         pymc_model_results_json =  pymc_model_results.json()
         write_json_to_gcs(BUCKET_NAME, file_path=filename,output_dict=pymc_model_results_json['body']['output_dict'], file_name_to_be_put_gcs='Output.json')
         status_log_file_to_gcs_robyn = requests.get('http://robyn:8001/api/log_file_to_gcs')
@@ -432,7 +432,7 @@ def compare_models_helper():
     elif global_robyn_status == "5002" and global_pymc_status == "5003":
         print("pymc model failed but robyn model succeded")
         robyn_model_results = requests.get('http://robyn:8001/api/robyn_model_results')
-        filename = create_directory_with_timestamp(BUCKET_NAME, file_path)
+        filename = file_path + '/' + model_folder_to_write + '/'
         robyn_model_results_json = robyn_model_results.json()
         write_json_to_gcs(BUCKET_NAME, file_path=filename,output_dict=robyn_model_results_json['body']['output_dict'], file_name_to_be_put_gcs='Output.json')
         status_log_file_to_gcs_robyn = requests.get('http://robyn:8001/api/log_file_to_gcs')
