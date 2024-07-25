@@ -406,6 +406,13 @@ def compare_models_helper():
         # stop the scheduler
     elif global_robyn_status == "5003" and global_pymc_status == "5003":
         print("both robyn and pymc failed")
+        status_log_file_to_gcs = requests.get('http://robyn:8001/api/log_file_to_gcs')
+        delete_log_file_from_system_robyn = requests.delete('http://robyn:8001/api/log_file')
+        status_log_file_to_gcs = requests.get('http://pymc:8003/api/log_file_to_gcs')
+        delete_log_file_from_system_pymc = requests.delete('http://pymc:8003/api/log_file')
+        scheduler.remove_job('robynJob')
+        scheduler.remove_job('pymcJob')
+        scheduler.remove_job('modelComparisonJob')
         print("Consider re-training the model")
     elif global_robyn_status == "5003" and global_pymc_status == "5004":
         print("robyn model failed but pymc is in progress")
@@ -436,9 +443,9 @@ def compare_models_helper():
         robyn_model_results_json = robyn_model_results.json()
         write_json_to_gcs(BUCKET_NAME, file_path=filename,output_dict=robyn_model_results_json['body']['output_dict'], file_name_to_be_put_gcs='Output.json')
         status_log_file_to_gcs_robyn = requests.get('http://robyn:8001/api/log_file_to_gcs')
-        status_log_file_to_gcs_robyn = requests.get('http://pymc:8003/api/log_file_to_gcs')
+        status_log_file_to_gcs_pymc = requests.get('http://pymc:8003/api/log_file_to_gcs')
         # delete the log file
-        delete_log_file_from_system_pymc = requests.delete('http://robyn:8001/api/log_file')
+        delete_log_file_from_system_robyn = requests.delete('http://robyn:8001/api/log_file')
         delete_log_file_from_system_pymc = requests.delete('http://pymc:8003/api/log_file')
         scheduler.remove_job('robynJob')
         scheduler.remove_job('pymcJob')

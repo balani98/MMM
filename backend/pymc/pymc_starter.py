@@ -112,6 +112,7 @@ def process_data(data, filename):
         logging.info('5002')
         return output_dict
     except Exception as error:
+        logging.error(error)
         logging.info('5003')
     
     

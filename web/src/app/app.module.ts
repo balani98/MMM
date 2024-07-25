@@ -32,6 +32,7 @@ import { CurrencySymbolPipe } from 'src/pipes/currency-symbol.pipe';
 import { RoundingPipe } from 'src/pipes/rounding.pipe';
 import { ValidationReportStatsComponent } from './validation-report-stats/validation-report-stats.component';
 import { ModelHealthComponent } from './model-health/model-health.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [
@@ -68,9 +69,9 @@ import { ModelHealthComponent } from './model-health/model-health.component';
     MatSelectModule,
     MatFormFieldModule,
     MatCheckboxModule,
-    NgxSpinnerModule
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ],
-  providers: [DecimalPipe,RoundingPipe],
+  providers: [DecimalPipe,RoundingPipe, provideAnimationsAsync()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
