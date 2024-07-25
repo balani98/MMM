@@ -425,6 +425,7 @@ def compare_models_helper():
         pymc_model_results = requests.get('http://pymc:8003/api/pymc_model_results')
         filename = file_path + '/' + model_folder_to_write + '/'
         pymc_model_results_json =  pymc_model_results.json()
+        print("pymc",pymc_model_results_json)
         write_json_to_gcs(BUCKET_NAME, file_path=filename,output_dict=pymc_model_results_json['body']['output_dict'], file_name_to_be_put_gcs='Output.json')
         status_log_file_to_gcs_robyn = requests.get('http://robyn:8001/api/log_file_to_gcs')
         status_log_file_to_gcs_pymc = requests.get('http://pymc:8003/api/log_file_to_gcs')
@@ -441,6 +442,7 @@ def compare_models_helper():
         robyn_model_results = requests.get('http://robyn:8001/api/robyn_model_results')
         filename = file_path + '/' + model_folder_to_write + '/'
         robyn_model_results_json = robyn_model_results.json()
+        print("robyn",robyn_model_results_json)
         write_json_to_gcs(BUCKET_NAME, file_path=filename,output_dict=robyn_model_results_json['body']['output_dict'], file_name_to_be_put_gcs='Output.json')
         status_log_file_to_gcs_robyn = requests.get('http://robyn:8001/api/log_file_to_gcs')
         status_log_file_to_gcs_pymc = requests.get('http://pymc:8003/api/log_file_to_gcs')
