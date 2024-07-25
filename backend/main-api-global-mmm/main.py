@@ -82,7 +82,7 @@ global_response_df = {}
 global_filename_uploaded = ""
 global_robyn_status = {}
 global_pymc_status = {}
-model_folder_to_write={}
+model_folder_to_write=""
 @app.route('/notify')
 def notify():
     # Emit a notification event when this endpoint is accessed
