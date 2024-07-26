@@ -270,7 +270,7 @@ def build_the_models():
         delete_log_file_from_system_robyn = requests.delete('http://robyn:8001/api/log_file')
         delete_log_file_from_system_pymc = requests.delete('http://pymc:8003/api/log_file')
         model_folder_to_write =  create_directory_with_timestamp(BUCKET_NAME, file_path)
-        model_folder_to_write = model_folder_to_write.split("/")[2]
+        model_folder_to_write = model_folder_to_write.split("/")[2] + '/'
         robyn_inputs["model_folder_to_write"] = model_folder_to_write
         pymc_inputs["model_folder_to_write"] =model_folder_to_write
         robyn_response = requests.post('http://robyn:8001/api/build_robyn_model', headers=headers,json=robyn_inputs, timeout=700.0)
