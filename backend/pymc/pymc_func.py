@@ -222,7 +222,7 @@ def create_response_df(volume_contribution, spend_df, spend_variables, media_var
 
 def sort_response_curve(data):
     sorted_data = data.copy()
-    for curve in sorted_data["response_curve"]:
+    for curve in sorted_data:
         sorted_values = sorted(curve["values"], key=lambda x: (x["spend"], x["target"]))
         curve["values"] = sorted_values
     return sorted_data
