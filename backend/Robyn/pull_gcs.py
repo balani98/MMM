@@ -34,9 +34,10 @@ def get_latest_folder_with_files(bucket_name, directory):
 
         # List blobs (folders) in the directory
         blobs = bucket.list_blobs(prefix=directory + '/')
-
         # Extract folder names from blob names
+        #folders = [blob.name[len(directory) + 1:].split('/')[0] for blob in blobs]
         folders = [blob.name[len(directory) + 1:].split('/')[0] for blob in blobs if blob.name.endswith('/')]
+        print(folders)
         #cleaning
         folders = [folder for folder in folders if folder]
         if not folders:
