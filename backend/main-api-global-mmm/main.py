@@ -384,6 +384,8 @@ def compare_models_helper():
         pymc_model_results = requests.get('http://pymc:8003/api/pymc_model_results')
         robyn_model_results_json = robyn_model_results.json()
         pymc_model_results_json = pymc_model_results.json()
+        print("robyn",robyn_model_results_json)
+        print("pymc",pymc_model_results_json)
         best_model = compare_models(robyn_model_results_json['body']['output_dict'], pymc_model_results_json['body']['output_dict'])
         filename = file_path + '/' + model_folder_to_write + '/'
         print("best model",best_model)
