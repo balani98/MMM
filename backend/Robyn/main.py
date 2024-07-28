@@ -101,7 +101,9 @@ def robyn_model_results():
         else:
             print(file_name)
             output_json_file = str(file_path)  + '/'+ str(file_name) + '/Output.json'
+            print(output_json_file)
             output_dict = extract_json_from_gcs(BUCKET_NAME, output_json_file)
+            print(output_dict)
             result = { 
                         'body': {
                             'output_dict':output_dict
