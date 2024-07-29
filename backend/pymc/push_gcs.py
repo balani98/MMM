@@ -16,6 +16,7 @@ elif os.environ.get('ENVIRONMENT') == 'DOCKER':
     BUCKET_NAME = Config.get('DOCKER', 'bucket_name')
     UPLOAD_FOLDER = Config.get('DOCKER', 'UPLOAD_FOLDER')
     filepath = Config.get('DOCKER', 'filepath')
+    log_file_path = Config.get('DOCKER','log_file_path')
     IP_ADDRESS = Config.get('DOCKER', 'IP_ADDRESS')
 else:
     SERVICE_ACCOUNT = Config.get('LOCAL', 'service_account')
@@ -95,4 +96,24 @@ def upload_log_to_gcs(bucket_name, source_file_name, destination_blob_name):
     blob.upload_from_filename(source_file_path)
 
     print(f"File {source_file_name} uploaded to {destination_blob_name} in bucket {bucket_name}")
+    
+
+def delete_log_file():
+    try:
+        # Check if file exists
+        if os.path.exists(log_file_path):
+            # Remove the file
+            os.remove(log_file_path)
+            print(f"{log_file_path} has been deleted successfully.")
+            result = { 
+            'body': {
+                'message':'log file deleted'
+                },
+            'status':200
+            }
+            return result,200
+        else:
+            print(f"The file {log_file_path} does not exist.")
+    except Exception as e:
+        print(f"An error occurred while trying to delete the file: {e}")
 

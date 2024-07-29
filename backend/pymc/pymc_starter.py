@@ -4,7 +4,7 @@ import logging
 import json
 import os
 from datetime import datetime
-from push_gcs import write_json_to_gcs
+from push_gcs import write_json_to_gcs,delete_log_file
 import configparser
 # logging.basicConfig(level=logging.INFO)
 
@@ -114,6 +114,8 @@ def process_data(data, filename):
     except Exception as error:
         logging.error(error)
         logging.info('5003')
+        print("deleting the log file")
+        delete_log_file()
     
     
 
