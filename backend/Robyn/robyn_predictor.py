@@ -18,7 +18,7 @@ from google.cloud import storage
 warnings.filterwarnings('ignore')
 import configparser
 Config = configparser.ConfigParser()
-from push_gcs import write_json_to_gcs
+from push_gcs import write_json_to_gcs,delete_log_file
 from push_gcs import write_csv_to_gcs
 import math
 Config.read('config.ini')
@@ -977,3 +977,5 @@ class robyn_predictor:
         except Exception as error:
             logging.error("Failed: Robyn")
             logging.error("5003")
+            print("deleting the log file in case of error")
+            delete_log_file()

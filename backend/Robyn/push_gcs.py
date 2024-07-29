@@ -17,6 +17,7 @@ elif os.environ.get('ENVIRONMENT') == 'DOCKER':
     UPLOAD_FOLDER = Config.get('DOCKER', 'UPLOAD_FOLDER')
     filepath = Config.get('DOCKER', 'filepath')
     IP_ADDRESS = Config.get('DOCKER', 'IP_ADDRESS')
+    log_file_path = Config.get('DOCKER','log_file_path')
 else:
     SERVICE_ACCOUNT = Config.get('LOCAL', 'service_account')
     BUCKET_NAME = Config.get('LOCAL', 'bucket_name')
@@ -114,5 +115,27 @@ def write_csv_to_gcs(dataframe, bucket_name, destination_blob_name):
     blob.upload_from_string(csv_data, content_type='text/csv')
 
     print(f'File uploaded to {bucket_name}/{destination_blob_name}')
+    
+def delete_log_file():
+    try:
+        # Check if file exists
+        if os.path.exists(log_file_path):
+            # Remove the file
+            os.remove(log_file_path)
+            print(f"{log_file_path} has been deleted successfully.")
+            result = { 
+            'body': {
+                'message':'log file deleted'
+                },
+            'status':200
+            }
+            return result,200
+        else:
+            print(f"The file {log_file_path} does not exist.")
+    except Exception as e:
+        print(f"An error occurred while trying to delete the file: {e}")
+    
+
+
 
 
