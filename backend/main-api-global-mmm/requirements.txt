@@ -88,3 +88,4 @@ ydata-profiling==4.6.4
 zipp==3.17.0
 flask_apscheduler==1.13.1
 flask_socketio==5.3.6
+slack_sdk==3.27.1
