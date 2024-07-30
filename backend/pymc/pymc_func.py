@@ -283,8 +283,8 @@ def predict_metrics(mmm,X_train_sorted,y_train_sorted,X_test_sorted,y_test_sorte
     else:
         diff_adjusted_r2="One of the adj r2 is infinite"
 
-    rmse_train = mean_squared_error(y_train_sorted[target].to_list(), output_train)
-    rmse_test = mean_squared_error(y_test_sorted[target].to_list(), output_test)
+    rmse_train = np.sqrt(mean_squared_error(y_train_sorted[target].to_list(), output_train))
+    rmse_test = np.sqrt(mean_squared_error(y_test_sorted[target].to_list(), output_test))
 
     nrmse_train = rmse_train / (np.max(output_train) - np.min(output_train))
     nrmse_test = rmse_test / (np.max(output_test) - np.min(output_test))
