@@ -34,6 +34,7 @@ elif os.environ.get('ENVIRONMENT') == 'DOCKER' :
     UserGuidepath = Config.get('DOCKER', 'UserGuidepath')
     file_path = Config.get('DOCKER', 'file_path')
     log_file_path = Config.get('DOCKER','log_file_path')
+    slack_token = Config.get('DOCKER','slack_token')
 else :
     SERVICE_ACCOUNT = Config.get('LOCAL', 'service_account')
     BUCKET_NAME = Config.get('LOCAL', 'bucket_name')

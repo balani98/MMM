@@ -27,6 +27,7 @@ from flask_apscheduler import APScheduler
 from push_gcs import write_json_to_gcs
 from model_comparison import compare_models
 from flask_socketio import SocketIO, emit
+from slack_sdk import WebClient
 # CONSTANTS
 ERROR_DICT = {
     "5002": "Value Error",
@@ -35,6 +36,7 @@ ERROR_DICT = {
 }
 Config = configparser.ConfigParser()
 Config.read('config.ini')
+
 if os.environ.get('ENVIRONMENT') == 'PRODUCTION':
     SERVICE_ACCOUNT = Config.get('PRODUCTION', 'service_account')
     BUCKET_NAME = Config.get('PRODUCTION', 'bucket_name')
@@ -50,6 +52,7 @@ elif os.environ.get('ENVIRONMENT') == 'DOCKER' :
     IP_ADDRESS = Config.get('DOCKER', 'IP_ADDRESS')
     UserGuidepath = Config.get('DOCKER', 'UserGuidepath')
     file_path = Config.get('DOCKER', 'file_path')
+    slack_token = Config.get('DOCKER','slack_token')
 else :
     SERVICE_ACCOUNT = Config.get('LOCAL', 'service_account')
     BUCKET_NAME = Config.get('LOCAL', 'bucket_name')
@@ -57,6 +60,10 @@ else :
     filepath = Config.get('LOCAL', 'filepath')
     IP_ADDRESS = Config.get('LOCAL', 'IP_ADDRESS')
     UserGuidepath = Config.get('LOCAL', 'UserGuidepath')
+    
+
+# Set up a WebClient with the Slack OAuth token
+client = WebClient(token=slack_token)
 
     
 app = Flask(__name__)
@@ -84,10 +91,26 @@ global_robyn_status = {}
 global_pymc_status = {}
 model_folder_to_write=""
 @app.route('/notify')
-def notify():
+def notify(status_code):
     # Emit a notification event when this endpoint is accessed
-    socketio.emit('notification', {'message': 'Model has been trained'})
+    if status_code == "5002":
+        message= 'Model has been trained' 
+        socketio.emit('notification', {'message': message})
+        client.chat_postMessage(
+                channel="global_mmm", 
+                text=message, 
+                username="Bot User"
+                )
+    else:
+        message= 'Model training failed , please re-check the inputs'
+        socketio.emit('notification', {'message': message})
+        client.chat_postMessage(
+                channel="global_mmm", 
+                text=message, 
+                username="Bot User"
+                )
     return 'Notification sent!'
+
 
 @app.route('/api/explorer/uploadfile',methods=['POST'])
 def uploadFile():
@@ -274,6 +297,12 @@ def build_the_models():
         model_folder_to_write = model_folder_to_write.split("/")[2]
         robyn_inputs["model_folder_to_write"] = model_folder_to_write
         pymc_inputs["model_folder_to_write"] =model_folder_to_write
+        message='MMM model training started for' + global_filename_uploaded 
+        client.chat_postMessage(
+                channel="global_mmm", 
+                text=message, 
+                username="Bot User"
+                )
         robyn_response = requests.post('http://robyn:8001/api/build_robyn_model', headers=headers,json=robyn_inputs, timeout=700.0)
         pymc_response = requests.post('http://pymc:8003/api/build_pymc_model', headers=headers,json=pymc_inputs, timeout=700.0)
         # Check the response
@@ -407,7 +436,7 @@ def compare_models_helper():
         del global_pymc_status
         del global_robyn_status
         # produce the notification
-        notify()
+        notify("5002")
         # stop the scheduler
     elif global_robyn_status == "5003" and global_pymc_status == "5003":
         print("both robyn and pymc failed")
@@ -421,6 +450,7 @@ def compare_models_helper():
         # deleting the variables 
         del global_pymc_status
         del global_robyn_status
+        notify("5003")
         print("Consider re-training the model")
     elif global_robyn_status == "5003" and global_pymc_status == "5004":
         print("robyn model failed but pymc is in progress")
@@ -444,7 +474,7 @@ def compare_models_helper():
         scheduler.remove_job('modelComparisonJob')
         # delete the log file
         # produce the notification
-        notify()
+        notify("5002")
         # deleting the variables 
         del global_pymc_status
         del global_robyn_status
@@ -464,7 +494,7 @@ def compare_models_helper():
         scheduler.remove_job('pymcJob')
         scheduler.remove_job('modelComparisonJob')
         # produce the notification
-        notify()
+        notify("5002")
         # deleting the variables 
         del global_pymc_status
         del global_robyn_status
