@@ -403,6 +403,9 @@ def compare_models_helper():
         scheduler.remove_job('robynJob')
         scheduler.remove_job('pymcJob')
         scheduler.remove_job('modelComparisonJob')
+        # deleting the variables 
+        del global_pymc_status
+        del global_robyn_status
         # produce the notification
         notify()
         # stop the scheduler
@@ -415,6 +418,9 @@ def compare_models_helper():
         scheduler.remove_job('robynJob')
         scheduler.remove_job('pymcJob')
         scheduler.remove_job('modelComparisonJob')
+        # deleting the variables 
+        del global_pymc_status
+        del global_robyn_status
         print("Consider re-training the model")
     elif global_robyn_status == "5003" and global_pymc_status == "5004":
         print("robyn model failed but pymc is in progress")
@@ -439,6 +445,9 @@ def compare_models_helper():
         # delete the log file
         # produce the notification
         notify()
+        # deleting the variables 
+        del global_pymc_status
+        del global_robyn_status
     elif global_robyn_status == "5002" and global_pymc_status == "5003":
         print("pymc model failed but robyn model succeded")
         robyn_model_results = requests.get('http://robyn:8001/api/robyn_model_results')
@@ -456,6 +465,9 @@ def compare_models_helper():
         scheduler.remove_job('modelComparisonJob')
         # produce the notification
         notify()
+        # deleting the variables 
+        del global_pymc_status
+        del global_robyn_status
     elif global_robyn_status == "5004" and global_pymc_status == "5004":
         print("DO NOTHING")
     elif global_robyn_status == "5004" and global_pymc_status == "5002":
