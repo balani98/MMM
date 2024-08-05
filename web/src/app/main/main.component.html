@@ -1,93 +1,93 @@
 <div class="container-fluid">
-  <div class="row">
-    <app-explorer-form
-      (overviewStats)="passoverviewStats($event)"
-      (variableStats)="passVariableStats($event)"
-      (variableName)="catchVariableName($event)"
-      (histogram)="passHistogramStats($event)"
-      (UIStats)="passUIStats($event)"
-      (validationReport)="passValidationReport($event)"
-      (currencyTypeEmitter)="passCurrencyType($event)"
-    ></app-explorer-form>
-  </div>
-  <div class="row">
-    <app-top-widgets
-      [UIStats]="UIStats"
-      [currencyType]="currencyType"
-    ></app-top-widgets>
-  </div>
-  <div class="row">
-    <div
-      class="col-lg-8 col-md-8 col-xl-8"
-      style="width: 98%; margin-bottom: -21px; margin-top: 8px"
-    >
-      <div
-        class="card mb-4 widget"
-        style="
+	<div class="row">
+		<app-explorer-form
+			(overviewStats)="passoverviewStats($event)"
+			(variableStats)="passVariableStats($event)"
+			(variableName)="catchVariableName($event)"
+			(histogram)="passHistogramStats($event)"
+			(UIStats)="passUIStats($event)"
+			(validationReport)="passValidationReport($event)"
+			(currencyTypeEmitter)="passCurrencyType($event)"
+		></app-explorer-form>
+	</div>
+	<div class="row">
+		<app-top-widgets
+			[UIStats]="UIStats"
+			[currencyType]="currencyType"
+		></app-top-widgets>
+	</div>
+	<div class="row">
+		<div
+			class="col-lg-8 col-md-8 col-xl-8"
+			style="width: 98%; margin-bottom: -21px; margin-top: 8px"
+		>
+			<div
+				class="card mb-4 widget"
+				style="
           background-color: #fff;
           padding-top: 2rem;
           padding-left: 1.5rem;
           padding-right: inherit;
         "
-      >
-        <app-profiling-stats
-          [overviewStats]="overviewStats"
-        ></app-profiling-stats>
-        <!-- <div class="card mb-4 widget" style="background-color: #fff; padding-top: 1rem; padding-left: 1.5rem"></div> -->
-      </div>
-    </div>
-    <div
-      class="col-lg-8 col-md-8 col-xl-8"
-      style="width: 98%; margin-bottom: -21px; margin-top: 8px"
-    >
-      <div class="text-center mb-2">
-        <h1>{{ variableName }}</h1>
-      </div>
-      <div
-        class="card mb-4 widget"
-        style="background-color: #fff; padding-top: 1rem"
-      >
-        <mat-tab-group>
-          <mat-tab label="Overall Statistics">
-            <app-channel-profiling-stats
-              [variableStats]="variableStats"
-            ></app-channel-profiling-stats>
-          </mat-tab>
-          <mat-tab label="Histogram" [@.disabled]="true">
-            <ng-template matTabContent>
-              <app-sales-by-month
-                [histogramStats]="histogramStats"
-                [variableName]="variableName"
-              ></app-sales-by-month>
-            </ng-template>
-          </mat-tab>
-          <mat-tab label="Analysis">
-            <app-channel-quantile-stats
-              [variableStats]="variableStats"
-            ></app-channel-quantile-stats>
-          </mat-tab>
-        </mat-tab-group>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div
-    class="col-lg-12 col-md-12 col-xl-12"
-    style="width: 98%; margin-bottom: -21px; margin-top: 8px"
-  >
-    <div
-      class="card mb-4 widget"
-      style="
+			>
+				<app-profiling-stats
+					[overviewStats]="overviewStats"
+				></app-profiling-stats>
+				<!-- <div class="card mb-4 widget" style="background-color: #fff; padding-top: 1rem; padding-left: 1.5rem"></div> -->
+			</div>
+		</div>
+		<div
+			class="col-lg-8 col-md-8 col-xl-8"
+			style="width: 98%; margin-bottom: -21px; margin-top: 8px"
+		>
+			<div class="text-center mb-2">
+				<h1>{{ variableName }}</h1>
+			</div>
+			<div
+				class="card mb-4 widget"
+				style="background-color: #fff; padding-top: 1rem"
+			>
+				<mat-tab-group>
+					<mat-tab label="Overall Statistics">
+						<app-channel-profiling-stats
+							[variableStats]="variableStats"
+						></app-channel-profiling-stats>
+					</mat-tab>
+					<mat-tab label="Histogram" [@.disabled]="true">
+						<ng-template matTabContent>
+							<app-sales-by-month
+								[histogramStats]="histogramStats"
+								[variableName]="variableName"
+							></app-sales-by-month>
+						</ng-template>
+					</mat-tab>
+					<mat-tab label="Analysis">
+						<app-channel-quantile-stats
+							[variableStats]="variableStats"
+						></app-channel-quantile-stats>
+					</mat-tab>
+				</mat-tab-group>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div
+		class="col-lg-12 col-md-12 col-xl-12"
+		style="width: 98%; margin-bottom: -21px; margin-top: 8px"
+	>
+		<div
+			class="card mb-4 widget"
+			style="
         background-color: #fff;
         padding-top: 2rem;
         padding-left: 1.5rem;
         padding-right: inherit;
       "
-    >
-      <app-validation-report-stats
-        [validationReport]="validationReport"
-      ></app-validation-report-stats>
-    </div>
-  </div>
-  </div>
+		>
+			<app-validation-report-stats
+				[validationReport]="validationReport"
+			></app-validation-report-stats>
+		</div>
+	</div>
+	</div>
 </div>

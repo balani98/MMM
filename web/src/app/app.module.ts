@@ -69,7 +69,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     MatSelectModule,
     MatFormFieldModule,
     MatCheckboxModule,
-    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
+    NgxSpinnerModule.forRoot({ type: 'ball-spin-clockwise' })
   ],
   providers: [DecimalPipe,RoundingPipe, provideAnimationsAsync()],
   bootstrap: [AppComponent]

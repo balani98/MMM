@@ -1,57 +1,15 @@
-<div class="user-dashboard" *ngIf="predictorMetricsInputs">
+<div class="user-dashboard ml-4" *ngIf="predictorMetricsInputs">
 	<h1 class="text-center font-weight-bold"style="font-size:2rem">
 		Model Performance
 		</h1>
+
 	<div class="row">
-		<div class="sales">
-			<h2 class="font-weight-bold mt-4 mb-2 ml-2">Test KPIs</h2>
-			</div>
-			<div class="row">
-				<div class="col-lg-6 col-sm-12 col-md-6 card-deck">
-					<div class="card card-stats mb-6 mb-xl-6 mb-sm-6 border">
-						<div class="card-body">
-							<div class="row">
-								<div class="col" id="total_budget_metric">
-									<h5 class="card-title mt-2 mb-1 inc_font_size">AdJ R2</h5>
-									<span class="h2 font-weight-bold mb-0">{{responseMetrics?.adjusted_r2_test| convertToPercentage | roundingPipe:2}} %</span>
-								</div>
-								<div class="col-auto">
-
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-6 col-sm-12 col-md-6 card-deck">
-					<div class="card card-stats mb-6 mb-xl-6 mb-sm-6 border">
-						<div class="card-body">
-							<div class="row">
-								<div class="col" id="total_target_metric">
-									<h5 class="card-title mb-1 inc_font_size">
-										MAPE
-									</h5>
-									<span class="h2 font-weight-bold mb-0">{{responseMetrics?.mape_test | convertToPercentage | roundingPipe:2}} %</span>
-								</div>
-								<div class="col-auto">
-
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				</div>
-
-
-	</div>
-	<div class="row">
-
-
-		<div class="sales">
-			<h2 class="font-weight-bold mt-4 mb-2 ml-2">Train KPIs</h2>
+	<div class="sales">
+		<h5 class="font-weight-bold mt-4 mb-2 ml-2">Train KPIs</h5>
 		</div>
 		<div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-12 card-deck">
-				<div class="card card-stats mb-6 mb-xl-6 border">
+				<div class="card card-stats mb-6 mb-xl-6 border apply-box-shadow">
 					<div class="card-body">
 						<div class="row">
 							<div class="col" id="total_budget_metric">
@@ -66,14 +24,14 @@
 				</div>
 			</div>
 			<div class="col-lg-6 col-md-6 card-deck">
-				<div class="card card-stats mb-6 mb-xl-6 border">
+				<div class="card card-stats mb-6 mb-xl-6 border apply-box-shadow">
 					<div class="card-body">
 						<div class="row">
 							<div class="col" id="total_target_metric">
 								<h5 class="card-title mb-1 inc_font_size">
 									MAPE
 								</h5>
-								<span class="h2 font-weight-bold">{{responseMetrics?.mape_train  | convertToPercentage | roundingPipe:2}} %</span>
+								<span class="h2 font-weight-bold">{{responseMetrics?.mape_train | convertToPercentage | roundingPipe:2}} %</span>
 							</div>
 							<div class="col-auto">
 
@@ -86,29 +44,68 @@
 			</div>
 
 
-</div>
-<div class="row">
-  <div class="sales">
-    <h2 class="font-weight-bold mt-4 mb-2 ml-2">Other Performance Metrics</h2>
-    </div>
-    <div class="row">
-      <div class="col-lg-6 card-deck col-md-6">
-        <div class="card card-stats mb-6 mb-xl-6 border">
-          <div class="card-body">
-            <div class="row">
-              <div class="col" id="total_budget_metric">
-                <h5 class="card-title mb-1 inc_font_size">RSSD</h5>
-                <span class="h2 font-weight-bold mb-0">{{responseMetrics?.rssd  | convertToPercentage | roundingPipe:2}} %</span>
-              </div>
-              <div class="col-auto">
+	</div>
+	<div class="row">
+	<div class="sales">
+		<h5 class="font-weight-bold mt-4 mb-2 ml-2">Test KPIs</h5>
+		</div>
+		<div class="row">
+			<div class="col-lg-6 col-sm-12 col-md-6 card-deck">
+				<div class="card card-stats mb-6 mb-xl-6 mb-sm-6 border apply-box-shadow">
+					<div class="card-body">
+						<div class="row">
+							<div class="col" id="total_budget_metric">
+								<h5 class="card-title mt-2 mb-1 inc_font_size">AdJ R2</h5>
+								<span class="h2 font-weight-bold mb-0">{{responseMetrics?.adjusted_r2_test| convertToPercentage | roundingPipe:2}} %</span>
+							</div>
+							<div class="col-auto">
 
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6 col-sm-12 col-md-6 card-deck">
+				<div class="card card-stats mb-6 mb-xl-6 mb-sm-6 border apply-box-shadow">
+					<div class="card-body">
+						<div class="row">
+							<div class="col" id="total_target_metric">
+								<h5 class="card-title mb-1 inc_font_size">
+									MAPE
+								</h5>
+								<span class="h2 font-weight-bold mb-0">{{responseMetrics?.mape_test | convertToPercentage | roundingPipe:2}} %</span>
+							</div>
+							<div class="col-auto">
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+	<div class="sales">
+		<h5 class="font-weight-bold mt-4 mb-2 ml-2">Other Performance Metrics</h5>
+		</div>
+		<div class="row">
+			<div class="col-lg-6 card-deck col-md-6">
+				<div class="card card-stats mb-6 mb-xl-6 border apply-box-shadow">
+					<div class="card-body">
+						<div class="row">
+							<div class="col" id="total_budget_metric">
+								<h5 class="card-title mb-1 inc_font_size">RSSD</h5>
+								<span class="h2 font-weight-bold mb-0">{{responseMetrics?.rssd | convertToPercentage | roundingPipe:2}} %</span>
+							</div>
+							<div class="col-auto">
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
 
 
-</div>
+	</div>
 </div>

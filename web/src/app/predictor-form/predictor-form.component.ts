@@ -4,6 +4,7 @@ import { getData } from 'src/data/data';
 import { PredictorService } from 'src/services/predictor.service';
 import { WebSocketService } from 'src/services/web-socket.service';
 import { Alert } from './alert.model';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-predictor-form',
@@ -11,7 +12,7 @@ import { Alert } from './alert.model';
   styleUrls: ['./predictor-form.component.scss'],
 })
 export class PredictorFormComponent implements OnInit {
-  constructor(private predictorService: PredictorService,private websocketService:WebSocketService) {} 
+  constructor(private predictorService: PredictorService,private websocketService:WebSocketService,private spinner: NgxSpinnerService) {} 
   @Output() responseCurvesData = new EventEmitter<any>();
   @Output() effectiveSharesData = new EventEmitter<any>();
   notifications: Alert[] = [];
@@ -97,6 +98,7 @@ export class PredictorFormComponent implements OnInit {
     );
   }
   onSubmit(predictorInputsValue: any) {
+    this.spinner.show()
     console.log(predictorInputsValue)
     var predictor_user_input = {
       'include_holiday': predictorInputsValue.holiday_selector,
@@ -107,6 +109,7 @@ export class PredictorFormComponent implements OnInit {
     this.predictorService.submitPredictorInputs(predictor_user_input).subscribe(
       (res: any) => {
         setTimeout(()=>{
+          this.spinner.hide()
           alert('Model is building in background !! you can check the result in Show Results')
       },1000)
 

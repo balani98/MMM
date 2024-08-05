@@ -130,6 +130,7 @@ export class ExplorerFormComponent implements OnInit {
     }, 5000);
   }
   onSubmit(explorerInputForm: any) {
+    this.spinner.show()
     var explorerInputs: ExplorerInput = new ExplorerInput();
     // to get the value of disabled option 
     explorerInputs.dataGranularity =
@@ -146,6 +147,7 @@ export class ExplorerFormComponent implements OnInit {
     this.explorerService.generateEDAreport(explorerInputs).subscribe(
       (res: any) => {
         if (res.status === 200) {
+          this.spinner.hide()
           console.log('success');
           alert("EDA Generated");
           console.log(res.sample_report);

@@ -34,6 +34,7 @@ export class SideNavComponent implements OnInit {
   selected:any = 'Insights'
   constructor(private explorerService:ExplorerService) { }
   select(item:any) {
+    localStorage.setItem('selected', item);
     console.log(this)
     this.selected = item; 
   };
@@ -41,7 +42,8 @@ export class SideNavComponent implements OnInit {
     return this.selected === item;
   };
   ngOnInit(): void {
-    this.select('insights')
+    this.selected = localStorage.getItem('selected')  
+    this.select(this.selected);
   }
 
   downloadUserGuide() {

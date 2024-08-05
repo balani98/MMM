@@ -1,16 +1,17 @@
 <div class="container-fluid">
   <div
     class="mb-5"
-    id="multi_line_chart_with_checkboxes"
+    id="multi_line_chart_with_checkboxes" class="apply-box-shadow"
     [ngStyle]="{'visibility':predictorInputs === false ? 'hidden' : 'visible' }"
     style="
       margin-top: 20px;
       padding: 1.5rem;
       position: relative;
       background-color: #fff;
+      margin-bottom: 30px;
     "
   ></div>
-  <div class="card row"   *ngIf = "predictorInputs === true">
+  <div class="card row apply-box-shadow"   *ngIf = "predictorInputs === true">
     <table class="table">
       <thead>
         <tr>

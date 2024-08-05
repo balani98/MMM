@@ -122,3 +122,6 @@
 select[disabled]:hover + .disabled-message, select[disabled]:focus + .disabled-message {
   display: block; /* Show the message on hover or focus */
 }
+.apply-box-shadow{
+  box-shadow:4.9px 9.8px 9.8px hsl(0deg 0% 0% / 0.35)
+}
