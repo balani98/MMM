@@ -101,6 +101,10 @@
     display: flex;
     justify-content: center;
 }
+.flex-display-file{
+  display: flex;
+  justify-content: space-between;
+}
 .c {
     white-space: nowrap; 
     max-width: 340px; 
@@ -124,4 +128,8 @@ select[disabled]:hover + .disabled-message, select[disabled]:focus + .disabled-m
 }
 .apply-box-shadow{
   box-shadow:4.9px 9.8px 9.8px hsl(0deg 0% 0% / 0.35)
+}
+.icon {
+  margin-right: 20px;
+  font-size: 1.7rem!important
 }

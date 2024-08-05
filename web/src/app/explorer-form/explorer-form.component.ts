@@ -5,12 +5,16 @@ import { FileUploadService } from 'src/services/file-upload.service';
 import { ExplorerInput } from '../models/explorerInput';
 import { Output, EventEmitter } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
+import {
+  faFileUpload,faFileArrowUp,faFileCsv
+} from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-explorer-form',
   templateUrl: './explorer-form.component.html',
   styleUrls: ['./explorer-form.component.scss'],
 })
 export class ExplorerFormComponent implements OnInit {
+  faFileUpload = faFileCsv
   protected explorerInput = new ExplorerInput();
   @Output() overviewStats = new EventEmitter<string>();
   @Output() variableStats = new EventEmitter<string>();
@@ -47,6 +51,7 @@ export class ExplorerFormComponent implements OnInit {
   checkFile(event: any) {
     this.file = event.target.files[0];
     this.name_of_file = this.file.name;
+    this.uploadFile()
   }
   uploadFile() {
     this.spinner.show()
