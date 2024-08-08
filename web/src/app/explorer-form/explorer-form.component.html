@@ -18,10 +18,13 @@
                   <input type="file" class="file-input" accept=".csv"
                 (change)="checkFile($event)" #fileUpload hidden>
                 
-                <div class="file-upload">
+                <div class="file-upload file-name">
                   {{name_of_file || "No file uploaded yet."}}
                 </div>
-                 <div>
+                <div class="fw-bold mb-2 mt-2">
+                  Upload File *
+                </div>
+                 <div class="fw-bold mb-2 mt-2">
                    
                   <i class="fa fa-upload icon" (click)="fileUpload.click()"></i>
                  
@@ -230,6 +233,7 @@
                   <option value="EUR">Euro</option>
                   <option value="AUD">Australlian Dollar</option>
                   <option value="JPY">Japanese Yen</option>
+                  <option value="CAD">Canadian Dollar</option>
                 </select>
               </div>
             </div>

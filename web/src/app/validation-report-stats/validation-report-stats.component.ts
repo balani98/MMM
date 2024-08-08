@@ -9,5 +9,9 @@ import { ExplorerService } from 'src/services/explorer.service';
 export class ValidationReportStatsComponent {
   constructor(private explorerService:ExplorerService){}
   @Input({required: true}) validationReport!: any;
+  @Input({required: true}) validationReportZeroDataPoints!: any;
+  @Input({required: true}) validationReportMisingDataPoints!: any;
+  @Input({required: true}) validationReportOutliers!: any;
+  @Input({required: true}) validationReportVarianceVariables!: any;
 
 }

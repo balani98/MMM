@@ -23,6 +23,10 @@ export class ExplorerFormComponent implements OnInit {
   @Output() UIStats = new EventEmitter<string>();
   @Output() currencyTypeEmitter = new EventEmitter<string>();
   @Output() validationReport = new EventEmitter<string>();
+  @Output() validationReportZeroDataPointsEmitter = new EventEmitter<string>();
+  @Output() validationReportMissingDataPointsEmitter = new EventEmitter<string>();
+  @Output() validationReportOutliersEmitter = new EventEmitter<string>();
+  @Output() validationReportVarianceVariablesEmitter = new EventEmitter<string>();
   file: File;
   dataGranularityValue:string =""
   name_of_file: any = 'No file chosen...';
@@ -43,6 +47,10 @@ export class ExplorerFormComponent implements OnInit {
   histogramStats: any;
   defaultCurrency:string='USD';
   validation_report:any = {}
+  validationReportZeroDataPoints:any={}
+  validationReportMissingDataPoints:any={}
+  validationReportOutliers:any={}
+  validationReportVarianceVariables:any={}
   constructor(
     private fileUploadService: FileUploadService,
     private explorerService: ExplorerService,
@@ -160,6 +168,10 @@ export class ExplorerFormComponent implements OnInit {
           this.overview_stats = res.sample_report['overview'];
           this.variable_stats = res.sample_report['variable'];
           this.histogramStats = res.sample_report['variable'].histogram;
+          this.validationReportZeroDataPoints = this.validation_report?.zero_datapoints
+          this.validationReportMissingDataPoints = this.validation_report?.missing_datapoints
+          this.validationReportOutliers = this.validation_report?.outliers
+          this.validationReportVarianceVariables = this.validation_report?.no_variance_var;
           console.log(this.variable_stats)
           this.overviewStats.emit(this.overview_stats);
           this.variableStats.emit(this.variable_stats);
@@ -167,6 +179,10 @@ export class ExplorerFormComponent implements OnInit {
           this.histogram.emit(this.histogramStats);
           this.UIStats.emit(res.UI_stats);
           this.validationReport.emit(this.validation_report)
+          this.validationReportZeroDataPointsEmitter.emit(this.validationReportZeroDataPoints)
+          this.validationReportMissingDataPointsEmitter.emit(this.validationReportMissingDataPoints)
+          this.validationReportOutliersEmitter.emit(this.validationReportOutliers)
+          this.validationReportVarianceVariablesEmitter.emit(this.validationReportVarianceVariables)
           this.currencyTypeEmitter.emit(this.currencyType)
         }
       },

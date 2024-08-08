@@ -12,6 +12,10 @@ export class MainComponent {
   UIStats: any = {};
   currencyType:string;
   validationReport:any = {}
+  validationReportZeroDataPoints:any={}
+  validationReportMissingDataPoints:any={}
+  validationReportOutliers:any={}
+  validationReportVarianceVariables:any={}
   passoverviewStats(overviewStats: any) {
     this.overviewStats = overviewStats;
   }
@@ -34,6 +38,19 @@ export class MainComponent {
   }
   passValidationReport(validationReport:any){
     this.validationReport = validationReport;
-    console.log('deeps',this.validationReport)
+  }
+  passValidationReportZeroDataPoints(validationReportZeroDataPoints:any){
+    this.validationReportZeroDataPoints = validationReportZeroDataPoints;
+  }
+  passValidationReportMissingDataPoints(validationReportMissingDataPoints:any){
+    this.validationReportMissingDataPoints = validationReportMissingDataPoints;
+  }
+  passValidationReportOutliers(validationReportOutliers:any){
+    this.validationReportOutliers = validationReportOutliers;
+    console.log(this.validationReportOutliers)
+  }
+  passValidationReportVarianceVariables(validationReportVarianceVariables:any){
+    this.validationReportVarianceVariables = validationReportVarianceVariables;
+    console.log(this.validationReportOutliers)
   }
 }
