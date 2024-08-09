@@ -1,6 +1,6 @@
 import { Component ,Input} from '@angular/core';
 import { ExplorerService } from 'src/services/explorer.service';
-
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 @Component({
   selector: 'app-validation-report-stats',
   templateUrl: './validation-report-stats.component.html',

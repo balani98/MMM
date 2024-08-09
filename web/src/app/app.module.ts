@@ -33,7 +33,7 @@ import { RoundingPipe } from 'src/pipes/rounding.pipe';
 import { ValidationReportStatsComponent } from './validation-report-stats/validation-report-stats.component';
 import { ModelHealthComponent } from './model-health/model-health.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +69,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     MatSelectModule,
     MatFormFieldModule,
     MatCheckboxModule,
-    NgxSpinnerModule.forRoot({ type: 'ball-spin-clockwise' })
+    NgxSpinnerModule.forRoot({ type: 'ball-spin-clockwise' }),
+    ScrollPanelModule
   ],
   providers: [DecimalPipe,RoundingPipe, provideAnimationsAsync()],
   bootstrap: [AppComponent]
