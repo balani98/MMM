@@ -25,10 +25,12 @@
           <th>Zero Data Points</th>
           <td *ngIf="(validationReport?.zero_datapoints|json) == ({} | json)">validated</td>
           <td *ngIf="(validationReport?.zero_datapoints| json) != ({} | json)">
-            <tr *ngFor="let item of validationReportZeroDataPoints  | keyvalue">
-              <td>{{item.key}}</td>
-              <td>{{item.value}}</td>
-            </tr>
+            <p-scrollPanel [style]="{ width: '100%', height: '150px' }">
+              <tr *ngFor="let item of validationReportZeroDataPoints  | keyvalue">
+                <td>{{item.key}}</td>
+                <td>{{item.value}}</td>
+              </tr>
+            </p-scrollPanel> 
           </td>
         </tr>
         <tr>
@@ -40,22 +42,24 @@
           <th>Variance Variables</th>
           <td *ngIf="(validationReport?.no_variance_var|json) == ([] | json)">validated</td>
           <td *ngIf="(validationReport?.no_variance_var|json) != ([] | json)">
-            <tr *ngFor="let item of validationReportVarianceVariables  | keyvalue">
-              <td>{{item.key}}</td>
-              <td>{{item.value}}</td>
-            </tr>
-          </td>
+            <p-scrollPanel [style]="{ width: '100%', height: '150px' }">
+              <tr *ngFor="let item of validationReportVarianceVariables  | keyvalue">
+                <td>{{item.key}}</td>
+                <td>{{item.value}}</td>
+              </tr>
+            </p-scrollPanel>
+           </td>
         </tr>
         <tr>
           <th>Outliers</th>
           <td *ngIf="(validationReport?.outliers|json) == ({} | json)">validated</td>
           <td *ngIf="(validationReport?.outliers|json) != ({} | json)">
+            <p-scrollPanel [style]="{ width: '100%', height: '150px' }">
               <tr *ngFor="let item of validationReportOutliers  | keyvalue">
                 <td>{{item.key}}</td>
                 <td>{{item.value}}</td>
               </tr>
-            
-            
+          </p-scrollPanel>
           </td>
         </tr>
       </tbody>
