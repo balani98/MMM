@@ -7,6 +7,10 @@
 			(histogram)="passHistogramStats($event)"
 			(UIStats)="passUIStats($event)"
 			(validationReport)="passValidationReport($event)"
+      (validationReportMissingDataPointsEmitter)="passValidationReportMissingDataPoints($event)"
+      (validationReportZeroDataPointsEmitter)="passValidationReportZeroDataPoints($event)"
+      (validationReportOutliersEmitter)="passValidationReportOutliers($event)"
+	  (validationReportVarianceVariables)="passValidationReportVarianceVariables($event)"
 			(currencyTypeEmitter)="passCurrencyType($event)"
 		></app-explorer-form>
 	</div>
@@ -86,6 +90,10 @@
 		>
 			<app-validation-report-stats
 				[validationReport]="validationReport"
+        [validationReportZeroDataPoints]="validationReportZeroDataPoints"
+        [validationReportMisingDataPoints]="validationReportMissingDataPoints"
+        [validationReportOutliers]="validationReportOutliers"
+		[validationReportVarianceVariables]="validationReportVarianceVariables"
 			></app-validation-report-stats>
 		</div>
 	</div>
