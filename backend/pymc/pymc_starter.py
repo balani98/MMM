@@ -40,6 +40,8 @@ else :
     UserGuidepath = Config.get('LOCAL', 'UserGuidepath')
 
 def build_pymc_model(data,filename):
+    print("written the input files to GCS")
+    write_json_to_gcs(BUCKET_NAME, filename, data, file_name_to_be_put_gcs='input.json')
     print(data,type(data['control_variables']))
     processed_data = process_data(data,filename)
     return 'Data received and processed successfully'
