@@ -16,6 +16,10 @@ export class MainComponent {
   validationReportMissingDataPoints:any={}
   validationReportOutliers:any={}
   validationReportVarianceVariables:any={}
+  edaGeneration:boolean=false;
+  passEDAGen(edaGen: any) {
+    this.edaGeneration = edaGen;
+  }
   passoverviewStats(overviewStats: any) {
     this.overviewStats = overviewStats;
   }

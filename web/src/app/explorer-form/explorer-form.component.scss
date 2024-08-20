@@ -139,3 +139,12 @@ select[disabled]:hover + .disabled-message, select[disabled]:focus + .disabled-m
   padding:10px;
   border:1px solid #dee2e6;
 }
+.btn-pink, .btn-pink:active{
+  background-color:#fa6c97;
+  color:#fff;
+  border:none;
+}
+.change-fonts{
+  font-family: "Exo", sans-serif;
+  //background-color: $light-primary-text;
+}

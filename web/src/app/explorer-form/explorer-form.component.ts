@@ -27,6 +27,7 @@ export class ExplorerFormComponent implements OnInit {
   @Output() validationReportMissingDataPointsEmitter = new EventEmitter<string>();
   @Output() validationReportOutliersEmitter = new EventEmitter<string>();
   @Output() validationReportVarianceVariablesEmitter = new EventEmitter<string>();
+  @Output() edaGeneration = new EventEmitter<boolean>();
   file: File;
   dataGranularityValue:string =""
   name_of_file: any = 'No file chosen...';
@@ -72,8 +73,8 @@ export class ExplorerFormComponent implements OnInit {
         alert('file uploaded succesfully');
         this.selectorsList = response.columns;
         this.dateSelectorsList = response.user_options.date;
-        this.spendSelectorsList = response.user_options.channel_spend;
-        this.targetSelectorsList = response.user_options.target;
+        this.spendSelectorsList = response.user_options.channel_spend.sort();
+        this.targetSelectorsList = response.user_options.target.sort();
 
       }
     });
@@ -184,6 +185,7 @@ export class ExplorerFormComponent implements OnInit {
           this.validationReportOutliersEmitter.emit(this.validationReportOutliers)
           this.validationReportVarianceVariablesEmitter.emit(this.validationReportVarianceVariables)
           this.currencyTypeEmitter.emit(this.currencyType)
+          this.edaGeneration.emit(true)
         }
       },
       (errorResponse: any) => {

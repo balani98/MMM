@@ -7,20 +7,21 @@
 			(histogram)="passHistogramStats($event)"
 			(UIStats)="passUIStats($event)"
 			(validationReport)="passValidationReport($event)"
-      (validationReportMissingDataPointsEmitter)="passValidationReportMissingDataPoints($event)"
-      (validationReportZeroDataPointsEmitter)="passValidationReportZeroDataPoints($event)"
-      (validationReportOutliersEmitter)="passValidationReportOutliers($event)"
-	  (validationReportVarianceVariables)="passValidationReportVarianceVariables($event)"
-			(currencyTypeEmitter)="passCurrencyType($event)"
+      		(validationReportMissingDataPointsEmitter)="passValidationReportMissingDataPoints($event)"
+      		(validationReportZeroDataPointsEmitter)="passValidationReportZeroDataPoints($event)"
+      		(validationReportOutliersEmitter)="passValidationReportOutliers($event)"
+	  		(validationReportVarianceVariables)="passValidationReportVarianceVariables($event)"
+	  		(currencyTypeEmitter)="passCurrencyType($event)"
+			(edaGeneration)="passEDAGen($event)"
 		></app-explorer-form>
 	</div>
-	<div class="row">
+	<div class="row" *ngIf="edaGeneration==true">
 		<app-top-widgets
 			[UIStats]="UIStats"
 			[currencyType]="currencyType"
 		></app-top-widgets>
 	</div>
-	<div class="row">
+	<div class="row"*ngIf="edaGeneration==true">
 		<div
 			class="col-lg-8 col-md-8 col-xl-8"
 			style="width: 98%; margin-bottom: -21px; margin-top: 8px"
@@ -74,7 +75,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row"*ngIf="edaGeneration==true">
 		<div
 		class="col-lg-12 col-md-12 col-xl-12"
 		style="width: 98%; margin-bottom: -21px; margin-top: 8px"
