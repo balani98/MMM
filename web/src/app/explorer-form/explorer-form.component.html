@@ -18,15 +18,15 @@
                   <input type="file" class="file-input" accept=".csv"
                 (change)="checkFile($event)" #fileUpload hidden>
                 
-                <div class="file-upload file-name">
+                <div class="file-upload fw-bold file-name">
                   {{name_of_file || "No file uploaded yet."}}
                 </div>
-                <div class="fw-bold mb-2 mt-2">
+                <!-- <div class="fw-bold mb-2 mt-2">
                   Upload File *
-                </div>
+                </div> -->
                  <div class="fw-bold mb-2 mt-2">
-                   
-                  <i class="fa fa-upload icon" (click)="fileUpload.click()"></i>
+                   <button class="btn btn-pink change-fonts"(click)="fileUpload.click()"title="only CSV allowed">Upload File</button>
+                  <!-- <i class="fa fa-upload icon" (click)="fileUpload.click()"></i> -->
                  
                 </div>
               </div>
